@@ -1,0 +1,21 @@
+v1.1
+
+Release Date: 2012-10-14
+
+Modifications of PHP Markdown class.
+
+- *Markdown_Parser* class renamed to *Markdown*
+- Removed WordPress interface.
+- Removed Smarty interface.
+- Removed Textile interface.
+- Removed BBLOG interface.
+- The `Markdown()` function is now an instance method, and marked *deprecated*.
+- Changed default empty element suffix to produce HTML-style tags (`>`).
+- Changed default tab width to *2*.
+- Changed class constructor to PHP5 style constructor.
+- *Private* class members are declared `private` instead of `var`.
+- Removed all constant definitions and references.
+- All *private* class members are at the top, before the constructor.
+- Add log message on class initialization (debug) .
+- Added `$_ci` member for CodeIgniter super object reference.
+- Only expose Markdown parsing methods, `parse_markdown()` and `parse_markdown_file`.
