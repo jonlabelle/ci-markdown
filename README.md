@@ -1,7 +1,7 @@
 CI Markdown
 ===========
 
-CI Markdown is a [CodeIgniter](http://codeigniter.com) library for parsing [Markdown](http://wikipedia.org/wiki/Markdown) formatted text in CodeIgniter. It is a modified version of Michel Fortin's [PHP Markdown](http://michelf.ca/projects/php-markdown/).
+CI Markdown is a [CodeIgniter](http://codeigniter.com) library for parsing [Markdown](http://wikipedia.org/wiki/Markdown). It's a modified rendition of Michel Fortin's [PHP Markdown](http://michelf.ca/projects/php-markdown/).
 
 **Modifications include:**
 
