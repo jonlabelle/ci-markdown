@@ -1,8 +1,17 @@
+v1.2
+
+Release Date: 2012-10-20
+
+-   Renamed public methods parse_markdown() and parse_markdown_file() to
+    — parse() and parse_file(), respectively.
+-   Ensure Markdown file is readable in parse_file().
+-   Consistent white-space formatting.
+
 v1.1
 
 Release Date: 2012-10-14
 
-Modifications of PHP Markdown class.
+PHP Markdown modifications
 
 -   Markdown_Parser class renamed to Markdown
 -   Removed WordPress interface.

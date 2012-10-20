@@ -3,23 +3,7 @@ CI Markdown
 
 CI Markdown is a [CodeIgniter](http://codeigniter.com) library for parsing [Markdown](http://wikipedia.org/wiki/Markdown). It's a modified rendition of Michel Fortin's [PHP Markdown](http://michelf.ca/projects/php-markdown/).
 
-**Modifications include:**
-
-- *Markdown_Parser* class renamed to *Markdown*
-- Removed WordPress interface.
-- Removed Smarty interface.
-- Removed TextPattern interface.
-- Removed BBLOG interface.
-- The `Markdown()` function is now an instance method, and marked *deprecated*.
-- Changed default empty element suffix to produce HTML-style tags (`>`).
-- Changed default tab width to *2*.
-- Changed class constructor to PHP5 style constructor.
-- *Private* class members are declared `private` instead of `var`.
-- Removed all constant definitions and references.
-- All *private* class members are at the top, before the constructor.
-- Add log message on class initialization (debug) .
-- Added `$_ci` member for CodeIgniter super object reference.
-- Only expose Markdown parsing methods, `parse_markdown()` and `parse_markdown_file`.
+See the [ChangeLog](https://github.com/jonlabelle/ci-markdown/blob/master/ChangeLog.txt) for a complete list of *PHP Markdown* modifications.
 
 Requirements
 ------------
@@ -35,15 +19,15 @@ Save `Markdown.php` to your CodeIgniter `application/libraries` folder.
 Usage
 -----
 
-### Loading
+### Loading the Library
 
-Load the CI Markdown library from your *Controller* class.
+Load the CI Markdown library from your *Controller*.
 
 ```php
 $this->load->library('markdown');
 ```
 
-Or auto-load it from your `application/config/autoload.php` file.
+Or auto-load it from your `application/config/autoload.php` config file.
 
 ```php
 $autoload['libraries'] = array('markdown');
@@ -51,25 +35,30 @@ $autoload['libraries'] = array('markdown');
 
 ### Parsing Markdown
 
-There are <em>two</em> methods for parsing Markdown formatted content.
-
-##### $this->markdown->parse_markdown()
-
-`parse_markdown()` accepts a single string parameter for Markdown formatted text. It parses and returns the input as an HTML formatted string.
+#### $this->markdown->parse()
 
 ```php
-$this->markdown->parse_markdown($markdown_text);
+$markdown_formatted_text = '# Heading' . "\n" . '## Sub-heading';
+echo $this->markdown->parse($markdown_formatted_text);
 ```
 
-##### $this->markdown->parse_markdown_file();
+`parse_markdown()` accepts a single `string` parameter of the Markdown formatted text. It parses and returns the Markdown as an HTML formatted `string`.
 
-`parse_markdown_file()` also accepts a single parameter which should be a <em>valid</em> Markdown file path. This method reads the contents of the Markdown file and returns them as an HTML formatted string.
+#### $this->markdown->parse_file();
 
 ```php
-$this->markdown->parse_markdown_file($file_path);
+$markdown_file_path = 'test.md';
+echo $this->markdown->parse_file($markdown_file_path);
 ```
 
-NOTE: If the file does not exist, `false` will be returned.
+`parse_file()` also accepts a single `string` parameter of a Markdown file path. It parses and returns the Markdown as an HTML formatted `string`.
+
+NOTE: If the Markdown file does not exist, `false` will be returned instead of `string`.
+
+Changes
+-------
+
+* See the [ChangeLog](https://github.com/jonlabelle/ci-markdown/blob/master/ChangeLog.txt).
 
 TODO
 ----
