@@ -8,7 +8,7 @@ CI Markdown is a [CodeIgniter](http://codeigniter.com) library for parsing [Mark
 - *Markdown_Parser* class renamed to *Markdown*
 - Removed WordPress interface.
 - Removed Smarty interface.
-- Removed Textile interface.
+- Removed TextPattern interface.
 - Removed BBLOG interface.
 - The `Markdown()` function is now an instance method, and marked *deprecated*.
 - Changed default empty element suffix to produce HTML-style tags (`>`).
