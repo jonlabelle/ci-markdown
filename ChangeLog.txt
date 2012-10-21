@@ -2,8 +2,8 @@ v1.2
 
 Release Date: 2012-10-20
 
--   Renamed public methods parse_markdown() and parse_markdown_file() to
-    — parse() and parse_file(), respectively.
+-   Renamed public methods parse_markdown() and parse_markdown_file() to —
+    parse() and parse_file(), respectively.
 -   Ensure Markdown file is readable in parse_file().
 -   Consistent white-space formatting.
 
@@ -18,8 +18,7 @@ PHP Markdown modifications
 -   Removed Smarty interface.
 -   Removed Textile interface.
 -   Removed BBLOG interface.
--   The Markdown() function is now an instance method, and marked
-    deprecated.
+-   The Markdown() function is now an instance method, and marked deprecated.
 -   Changed default empty element suffix to produce HTML-style tags (>).
 -   Changed default tab width to 2.
 -   Changed class constructor to PHP5 style constructor.
@@ -30,3 +29,4 @@ PHP Markdown modifications
 -   Added $_ci member for CodeIgniter super object reference.
 -   Only expose Markdown parsing methods, parse_markdown() and
     parse_markdown_file.
+
