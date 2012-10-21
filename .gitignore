@@ -1,6 +1,8 @@
 .DS_Store
 .DS_Store?
 
+Makefile
+
 tests/example.php
 tests/test.md
 tests/ci_controller_test.php
