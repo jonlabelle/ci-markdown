@@ -37,28 +37,34 @@ $autoload['libraries'] = array('markdown');
 
 #### $this->markdown->parse()
 
+The *parse()* method accepts a single parameter for a Markdown formatted string. It returns an HTML formatted `string`.
+
+##### Example
+
 ```php
-$markdown_formatted_text = '# Heading' . "\n" . '## Sub-heading';
+$markdown_formatted_text = '# Heading ' . "\n\n" . '## Sub-heading' . "\n\n";
 echo $this->markdown->parse($markdown_formatted_text);
+// outputs <h1>Heading</h1><h2>Sub-heading</h2>
 ```
 
-`parse_markdown()` accepts a single `string` parameter of the Markdown formatted text. It parses and returns the Markdown as an HTML formatted `string`.
-
 #### $this->markdown->parse_file();
+
+The *parse_file()* method accepts a single parameter for a Markdown formatted file. It returns an HTML formatted `string`.
+
+##### Example
 
 ```php
 $markdown_file_path = 'test.md';
 echo $this->markdown->parse_file($markdown_file_path);
+// outputs <h1>Hello world!</h1><h2>I was once in a file!</h2>
 ```
 
-`parse_file()` also accepts a single `string` parameter of a Markdown file path. It parses and returns the Markdown as an HTML formatted `string`.
-
-NOTE: If the Markdown file does not exist, `false` will be returned instead of `string`.
+NOTE: If the Markdown file does not exist, `false` is returned.
 
 Changes
 -------
 
-* See the [ChangeLog](https://github.com/jonlabelle/ci-markdown/blob/master/ChangeLog.txt).
+* See the [ChangeLog](https://github.com/jonlabelle/ci-markdown/blob/master/ChangeLog.txt) for a detailed list of changes.
 
 TODO
 ----
