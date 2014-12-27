@@ -1,3 +1,10 @@
+v1.2.1
+
+Release Date: 2014-12-27
+
+-   Code style, formatting and whitespace clean-up.
+-   Remove legacy constructor.
+
 v1.2
 
 Release Date: 2012-10-20
