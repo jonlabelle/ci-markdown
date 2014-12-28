@@ -1,38 +1,22 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php
 /**
- * CodeIgniter Markdown (CI Markdown) v1.2.1
+ * CodeIgniter Markdown
  *
- * Parses Mardown formatted text to HTML.
- * A modified version of Michel Fortin's PHP Markdown.
- *
- * Jon LaBelle
- * <http://jonlabelle.com/>
- * <http://github.com/jonlabelle.com/ci-markdown>
- * Sat Dec 27 15:44:12 CST 2014
- *
- * --------------------------------------------
- * PHP Markdown, Markdown Copyright and License
- * --------------------------------------------
- * PHP Markdown
- * Copyright (c) 2004-2009 Michel Fortin
- * <http://michelf.com/>
- * All rights reserved.
- *
- * Based on Markdown
- * Copyright (c) 2003-2006 John Gruber
- * <http://daringfireball.net/>
- * All rights reserved.
- * --------------------------------------------
+ * Parses Mardown formatted text to HTML. A modified version of Michel Fortin's
+ * PHP Markdown.
  *
  * @package     CodeIgniter
  * @subpackage  Libraries
  * @category    Libraries
+ * @category    Libraries
+ * @copyright   PHP Markdown Copyright (c) 2004-2014 Michel Fortin <http://michelf.com/projects/php-markdown/>
+ * @copyright   Markdown Copyright (c) 2004-2006 John Gruber <http://daringfireball.net/projects/markdown/>
+ * @license	    http://opensource.org/licenses/MIT MIT License
  * @author      Jon LaBelle
- * @version     1.2
- * @license     see respective licenses above
- * @link        http://github.com/jonlabelle.com/ci-markdown
+ * @link        https://github.com/jonlabelle/ci-markdown
+ * @version     1.2.1
  */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Markdown
 {
@@ -690,7 +674,7 @@ class Markdown
 		if (isset($title))
 		{
 			$title = $this->encodeAttribute($title);
-			$result .=  " title=\"$title\"";
+			$result .= " title=\"$title\"";
 		}
 
 		$link_text = $this->runSpanGamut($link_text);
