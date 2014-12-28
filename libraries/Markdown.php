@@ -1,6 +1,6 @@
 <?php
 /**
- * CodeIgniter Markdown
+ * CodeIgniter Markdown v1.2.1
  *
  * Parses Mardown formatted text to HTML. A modified version of Michel Fortin's
  * PHP Markdown.
@@ -8,9 +8,9 @@
  * @package     CodeIgniter
  * @subpackage  Libraries
  * @category    Libraries
- * @copyright   PHP Markdown Copyright (c) 2004-2014 Michel Fortin <http://michelf.com/projects/php-markdown/>
- * @copyright   Markdown Copyright (c) 2004-2006 John Gruber <http://daringfireball.net/projects/markdown/>
- * @license	    http://opensource.org/licenses/MIT MIT License
+ * @copyright   PHP Markdown Copyright (c) 2004-2014 Michel Fortin (http://michelf.com/projects/php-markdown/)
+ * @copyright   Markdown Copyright (c) 2004-2006 John Gruber (http://daringfireball.net/projects/markdown/)
+ * @license     MIT License (http://opensource.org/licenses/MIT)
  * @author      Jon LaBelle
  * @link        https://github.com/jonlabelle/ci-markdown
  * @version     1.2.1
