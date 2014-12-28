@@ -19,8 +19,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Markdown
 {
-	private $_ci;
-
 	// Regex to match balanced [brackets].
 	// Needed to insert a maximum bracked depth while converting to PHP.
 	private $nested_brackets_depth = 6;
@@ -124,8 +122,6 @@ class Markdown
 
 	public function __construct()
 	{
-		$this->_ci = & get_instance();
-
 		$this->_initDetab();
 		$this->prepareItalicsAndBold();
 
