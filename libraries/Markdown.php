@@ -8,7 +8,6 @@
  * @package     CodeIgniter
  * @subpackage  Libraries
  * @category    Libraries
- * @category    Libraries
  * @copyright   PHP Markdown Copyright (c) 2004-2014 Michel Fortin <http://michelf.com/projects/php-markdown/>
  * @copyright   Markdown Copyright (c) 2004-2006 John Gruber <http://daringfireball.net/projects/markdown/>
  * @license	    http://opensource.org/licenses/MIT MIT License
