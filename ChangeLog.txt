@@ -1,3 +1,9 @@
+v1.2.2
+
+Release Date: 2014-12-29
+
+-   Add doc block comments.
+
 v1.2.1
 
 Release Date: 2014-12-27
