@@ -1,9 +1,11 @@
 CI Markdown
 ===========
 
-CI Markdown is a [CodeIgniter](http://codeigniter.com) library for parsing [Markdown](http://wikipedia.org/wiki/Markdown). It's a modified rendition of Michel Fortin's [PHP Markdown](http://michelf.ca/projects/php-markdown/).
+CI Markdown is a [CodeIgniter](http://codeigniter.com) library for
+parsing [Markdown](http://wikipedia.org/wiki/Markdown). It's a modified
+rendition of Michel Fortin's [PHP Markdown](http://michelf.ca/projects/php-markdown/).
 
-See the [ChangeLog](https://github.com/jonlabelle/ci-markdown/blob/master/ChangeLog.txt) for a complete list of *PHP Markdown* modifications.
+> **UPDATE**: [php Markdown Extra](https://michelf.ca/projects/php-markdown/extra/) now baked in!
 
 Requirements
 ------------
@@ -37,7 +39,8 @@ $autoload['libraries'] = array('markdown');
 
 #### $this->markdown->parse()
 
-The *parse()* method accepts a single parameter for a Markdown formatted string. It returns an HTML formatted `string`.
+The *parse()* method accepts a single parameter for a Markdown formatted
+string. It returns an HTML formatted `string`.
 
 ##### Example
 
@@ -49,7 +52,8 @@ echo $this->markdown->parse($markdown_formatted_text);
 
 #### $this->markdown->parse_file();
 
-The *parse_file()* method accepts a single parameter for a Markdown formatted file. It returns an HTML formatted `string`.
+The *parse_file()* method accepts a single parameter for a Markdown formatted
+file. It returns an HTML formatted `string`.
 
 ##### Example
 
@@ -64,7 +68,8 @@ NOTE: If the Markdown file does not exist, `false` is returned.
 Changes
 -------
 
-* See the [ChangeLog](https://github.com/jonlabelle/ci-markdown/blob/master/ChangeLog.txt) for a detailed list of changes.
+* See the [ChangeLog](https://github.com/jonlabelle/ci-markdown/blob/master/ChangeLog.txt) 
+  for a detailed list of changes.
 
 TODO
 ----

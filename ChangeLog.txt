@@ -1,3 +1,9 @@
+v1.3.0
+
+Release Date: 2014-12-30
+
+-   Baked in PHP Markdown Extra (https://michelf.ca/projects/php-markdown/extra/).
+
 v1.2.2
 
 Release Date: 2014-12-29
