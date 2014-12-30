@@ -1,6 +1,6 @@
 <?php
 /**
- * CodeIgniter Markdown v1.2.2
+ * CodeIgniter Markdown v1.3.0
  *
  * Parses Mardown formatted text to HTML. A modified version of Michel Fortin's
  * PHP Markdown.
@@ -13,7 +13,7 @@
  * @license     MIT License (http://opensource.org/licenses/MIT)
  * @author      Jon LaBelle
  * @link        https://github.com/jonlabelle/ci-markdown
- * @version     1.2.2
+ * @version     1.3.0
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
