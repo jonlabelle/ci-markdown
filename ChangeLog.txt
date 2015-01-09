@@ -1,3 +1,7 @@
+v1.3.1
+
+-   Remove passing by instance reference in callback operations.
+
 v1.3.0
 
 Release Date: 2014-12-30
