@@ -1,93 +1,92 @@
-CI Markdown
-===========
+# CI Markdown
 
-CI Markdown is a [CodeIgniter](http://codeigniter.com) library for
-parsing [Markdown](http://wikipedia.org/wiki/Markdown). It's a modified
-rendition of Michel Fortin's [PHP Markdown](http://michelf.ca/projects/php-markdown/).
+CI Markdown is a modified rendition of Michel Fortin's [PHP Markdown][1] 
+and [PHP Markdown Extra][2] for [CodeIgniter][3].
 
-> **UPDATE**: [php Markdown Extra](https://michelf.ca/projects/php-markdown/extra/) now baked in!
+## Install
 
-Requirements
-------------
+### Requirements
 
-- PHP 5.2x+
-- CodeIgniter v2.1.0 to v3.x-dev
+- [PHP][4] version 5.2.4 or newer
+- [CodeIgniter][3] version 2.x – v3.x
 
-Installation
-------------
+### Download
 
-Save `Markdown.php` to your CodeIgniter `application/libraries` folder.
+Download and extract the [zip][5] release to your CoddeIgniter 
+`application/libraries/` directory.
 
-Usage
------
+**The extracted path should resemble:**
 
-### Loading the Library
+- `application/libraries/Markdown.php`
 
-Load the CI Markdown library from your *Controller*.
+## Usage
 
-```php
-$this->load->library('markdown');
-```
+### Loading the library
 
-Or auto-load it from your `application/config/autoload.php` config file.
+**Auto Loading**
 
 ```php
 $autoload['libraries'] = array('markdown');
 ```
 
-### Parsing Markdown
-
-#### $this->markdown->parse()
-
-The *parse()* method accepts a single parameter for a Markdown formatted
-string. It returns an HTML formatted `string`.
-
-##### Example
+**Manual Loading**
 
 ```php
-$markdown_formatted_text = '# Heading ' . "\n\n" . '## Sub-heading' . "\n\n";
-echo $this->markdown->parse($markdown_formatted_text);
-// outputs <h1>Heading</h1><h2>Sub-heading</h2>
+$this->load->library('markdown');
 ```
 
-#### $this->markdown->parse_file();
+### Parsing
 
-The *parse_file()* method accepts a single parameter for a Markdown formatted
-file. It returns an HTML formatted `string`.
+#### Markdown Text to HTML
 
-##### Example
+- `$this->markdown->parse()`
+
+Accepts a single `string` parameter of Markdown *text* and returns the parsed 
+HTML.
+
+**Example**
 
 ```php
-$markdown_file_path = 'test.md';
-echo $this->markdown->parse_file($markdown_file_path);
-// outputs <h1>Hello world!</h1><h2>I was once in a file!</h2>
+$markdown = "# Heading "."\n\n"."## Sub-heading"."\n\n";
+echo $this->markdown->parse($markdown);
+<h1>Heading</h1><h2>Sub-heading</h2>
 ```
 
-NOTE: If the Markdown file does not exist, `false` is returned.
+#### Markdown File to HTML
 
-Changes
--------
+- `$this->markdown->parse_file()`
 
-* See the [ChangeLog](https://github.com/jonlabelle/ci-markdown/blob/master/ChangeLog.txt) 
-  for a detailed list of changes.
+Accepts a single `string` parameter for a Markdown *file path* and returns the 
+parsed HTML.
 
-TODO
-----
+**Example**
 
-- Unit tests
+```php
+echo $this->markdown->parse_file('README.md');
+<h1>CI Markdown</h1><p>CI Markdown is a modified rendition...</p>
+```
 
-Resources
----------
+## Issues
 
-* [PHP Markdown](http://michelf.ca/projects/php-markdown/)
-* [Markdown](http://daringfireball.net/projects/markdown/)
+For all issues including feature requests, please [open a new issue][6].
 
-Feedback
---------
+## Changes
 
-Jon LaBelle
-<contact@jonlabelle.com>
+See the [Changelog][7] page.
 
-Issues
-------
-<https://github.com/jonlabelle/ci-markdown/issues>
+## Credits
+
+- [John Gruber](http://daringfireball.net/)
+- [Michel Fortin](https://michelf.ca/home/)
+
+## Author
+
+- Jon LaBelle <contact@jonlabelle.com>
+
+[1]: https://michelf.ca/projects/php-markdown/
+[2]: https://michelf.ca/projects/php-markdown/extra/
+[3]: http://www.codeigniter.com
+[4]: http://php.net
+[5]: https://github.com/jonlabelle/ci-markdown/archive/master.zip
+[6]: https://github.com/jonlabelle/ci-markdown/issues/new
+[7]: https://github.com/jonlabelle/ci-markdown/blob/master/CHANGELOG.md
