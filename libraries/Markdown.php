@@ -433,7 +433,7 @@ class Markdown {
 		asort($this->block_gamut);
 		asort($this->span_gamut);
 
-		log_message('debug', 'Markdown class initialized.');
+		log_message('info', 'Markdown Class Initialized');
 	}
 
 	/**
