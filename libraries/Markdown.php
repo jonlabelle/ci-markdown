@@ -3343,6 +3343,3 @@ class Markdown {
 	}
 
 }
-
-/* End of file Markdown.php */
-/* Location: ./application/libraries/Markdown.php */
