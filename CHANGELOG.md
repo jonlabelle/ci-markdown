@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.3.2
+
+**Release Date:** 2015-03-29
+
+**Merge PHP Markdown v1.5.0 Changes**
+
+- Added the ability start ordered lists with a number different from 1 and and
+  have that reflected in the HTML output. This can be enabled with the
+  `enhanced_ordered_lists` configuration variable for the Markdown parser; it
+  is enabled by default for Markdown Extra. Credits to Matt Gorle for
+  providing the implementation.
+- Added the ability to insert custom HTML attributes with simple values
+  everywhere an extra attribute block is allowed (links, images, headers). The
+  value must be unquoted, cannot contains spaces and is limited to
+  alphanumeric ASCII characters. Credits to Peter Droogmans for providing the
+  implementation.
+- Added a `header_id_func` configuration variable which takes a function that
+  can generate an `id` attribute value from the header text. Credits to Evert
+  Pot for providing the implementation.
+- Added a `url_filter_func` configuration variable which takes a function that
+  can rewrite any link or image URL to something different.
+
 ## v1.3.1
 
 **Release Date:** 2015-01-09
