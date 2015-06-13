@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.3
+
+**Release Date:** 2015-06-13
+
+- Reduce nesting in parse functions.
+- Minor whitespace adjustments.
+
 ## v1.3.2
 
 **Release Date:** 2015-03-29

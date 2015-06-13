@@ -1,6 +1,6 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php
 /**
- * CodeIgniter Markdown v1.3.2
+ * CodeIgniter Markdown v1.3.3
  *
  * Parses Mardown formatted text to HTML. A modified version of Michel Fortin's
  * PHP Markdown.
@@ -15,8 +15,10 @@
  * @license     MIT License (http://opensource.org/licenses/MIT)
  * @author      Jon LaBelle
  * @link        https://github.com/jonlabelle/ci-markdown
- * @version     1.3.2
+ * @version     1.3.3
  */
+defined('BASEPATH') or exit('No direct script access allowed');
+
 class Markdown {
 
     /**
@@ -476,14 +478,7 @@ class Markdown {
      */
     public function parse($text)
     {
-        if (is_string($text))
-        {
-            return $this->transform($text);
-        }
-        else
-        {
-            return false;
-        }
+        return $this->transform($text);
     }
 
     /**
@@ -498,10 +493,8 @@ class Markdown {
         {
             return $this->transform(@file_get_contents($file));
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
     /**
@@ -512,19 +505,19 @@ class Markdown {
     private function setup()
     {
         // clear global hashes
-        $this->urls = $this->predef_urls;
-        $this->titles = $this->predef_titles;
-        $this->html_hashes = array();
-        $this->in_anchor = false;
+        $this->urls                = $this->predef_urls;
+        $this->titles              = $this->predef_titles;
+        $this->html_hashes         = array();
+        $this->in_anchor           = false;
 
         // extra
-        $this->footnotes = array();
-        $this->footnotes_ordered = array();
+        $this->footnotes           = array();
+        $this->footnotes_ordered   = array();
         $this->footnotes_ref_count = array();
-        $this->footnotes_numbers = array();
-        $this->abbr_desciptions = array();
-        $this->abbr_word_re = '';
-        $this->footnote_counter = 1;
+        $this->footnotes_numbers   = array();
+        $this->abbr_desciptions    = array();
+        $this->abbr_word_re        = '';
+        $this->footnote_counter    = 1;
 
         foreach ($this->predef_abbr as $abbr_word => $abbr_desc)
         {
@@ -547,16 +540,16 @@ class Markdown {
     private function teardown()
     {
         // Clearing Extra-specific variables.
-        $this->footnotes = array();
-        $this->footnotes_ordered = array();
+        $this->footnotes           = array();
+        $this->footnotes_ordered   = array();
         $this->footnotes_ref_count = array();
-        $this->footnotes_numbers = array();
-        $this->abbr_desciptions = array();
-        $this->abbr_word_re = '';
+        $this->footnotes_numbers   = array();
+        $this->abbr_desciptions    = array();
+        $this->abbr_word_re        = '';
 
-        $this->urls = array();
-        $this->titles = array();
-        $this->html_hashes = array();
+        $this->urls                = array();
+        $this->titles              = array();
+        $this->html_hashes         = array();
     }
 
     /**
