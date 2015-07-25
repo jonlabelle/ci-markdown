@@ -23,13 +23,13 @@ Download and extract the [zip][5] release to your CoddeIgniter
 
 ### Loading the library
 
-**Auto Loading**
+**Auto-loading:** (application/config/autoload.php)
 
 ```php
 $autoload['libraries'] = array('markdown');
 ```
 
-**Manual Loading**
+**Manual Loading:** (Controller method)
 
 ```php
 $this->load->library('markdown');
