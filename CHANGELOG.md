@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.3.4
+
+**Release Date:** 2015-08-08
+
+- You can now set a class name for the code block's language before the special
+  attribute block. Previously, this class name was only allowed in the absence
+  of the special attribute block.
+- Added a `code_block_content_func` configuration variable which takes a
+  function that will convert the content of the code block to HTML. This is most
+  useful for syntax highlighting. For fenced code blocks in Markdown Extra, the
+  function has access to the language class name (the one outside of the special
+  attribute block). Credits to Mario Konrad for providing the implementation.
+- Convert private members and methods to protected to allow inheritance.
+- Update code header.
+
 ## v1.3.3
 
 **Release Date:** 2015-06-13
