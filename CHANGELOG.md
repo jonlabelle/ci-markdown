@@ -1,6 +1,17 @@
 # Changelog
 
-## v1.3.4
+## 1.3.5
+
+**Release Date:** 2015-10-17
+
+- The curled arrow character for the backlink in footnotes is now followed by a
+  Unicode variant selector to prevent it from being displayed in emoji form on
+  iOS. Note that in older browsers the variant selector is often interpreted as
+  a separate character, making it visible after the arrow. So there is now a
+  also a `fn_backlink_html` configuration variable that can be used to set the
+  link text to something else.
+
+## 1.3.4
 
 **Release Date:** 2015-08-08
 
@@ -15,14 +26,14 @@
 - Convert private members and methods to protected to allow inheritance.
 - Update code header.
 
-## v1.3.3
+## 1.3.3
 
 **Release Date:** 2015-06-13
 
 - Reduce nesting in parse functions.
 - Minor whitespace adjustments.
 
-## v1.3.2
+## 1.3.2
 
 **Release Date:** 2015-03-29
 
@@ -44,32 +55,32 @@
 - Added a `url_filter_func` configuration variable which takes a function that
   can rewrite any link or image URL to something different.
 
-## v1.3.1
+## 1.3.1
 
 **Release Date:** 2015-01-09
 
 - Remove passing instance references to callbacks.
 
-## v1.3.0
+## 1.3.0
 
 **Release Date:** 2014-12-30
 
 - Bake in [PHP Markdown Extra](https://michelf.ca/projects/php-markdown/extra/).
 
-## v1.2.2
+## 1.2.2
 
 **Release Date:** 2014-12-29
 
 - Add Doc Blocks comments.
 
-## v1.2.1
+## 1.2.1
 
 **Release Date:** 2014-12-27
 
 - Whitespace clean-up.
 - Remove legacy class constructor.
 
-## v1.2.0
+## 1.2.0
 
 **Release Date:** 2012-10-20
 
@@ -77,7 +88,7 @@
 - Ensure file is readable in `parse_file()`.
 - Whitespace clean-up.
 
-## v1.1.0
+## 1.1.0
 
 **Release Date:** 2012-10-14
 

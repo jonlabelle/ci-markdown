@@ -15,7 +15,7 @@
  * @license     MIT License (http://opensource.org/licenses/MIT)
  * @author      Jon LaBelle
  * @link        https://github.com/jonlabelle/ci-markdown
- * @version     1.3.4
+ * @version     1.3.5
  */
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -280,6 +280,15 @@ class Markdown {
      * @var string
      */
     public $fn_backlink_class = "footnote-backref";
+
+    /**
+     * Content to be displayed within footnote backlinks. The default is '↩';
+     * the U+FE0E on the end is a Unicode variant selector used to prevent
+     * iOS from displaying the arrow character as an emoji.
+     *
+     * @var string
+     */
+    public $fn_backlink_html = '&#8617;&#xFE0E;';
 
     /**
      * Class name for table cell alignment (%% replaced left/center/right) For
@@ -2417,13 +2426,19 @@ class Markdown {
         $codeblock = $matches[1];
 
         $codeblock = $this->outdent($codeblock);
-        $codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
+        if ($this->code_block_content_func)
+        {
+            $codeblock = call_user_func($this->code_block_content_func, $codeblock, "");
+        }
+        else
+        {
+            $codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
+        }
 
         // trim leading newlines and trailing newlines
         $codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
 
         $codeblock = "<pre><code>$codeblock\n</code></pre>";
-
         return "\n\n".$this->hashBlock($codeblock)."\n\n";
     }
 
@@ -2770,14 +2785,17 @@ class Markdown {
      */
     protected function appendFootnotes($text)
     {
-        $text = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
-            array($this, '_appendFootnotes_callback'), $text);
+        $text = preg_replace_callback(
+            '{F\x1Afn:(.*?)\x1A:}',
+            array($this, '_appendFootnotes_callback'),
+            $text
+        );
 
         if (!empty($this->footnotes_ordered))
         {
             $text .= "\n\n";
             $text .= "<div class=\"footnotes\">\n";
-            $text .= "<hr".$this->empty_element_suffix."\n";
+            $text .= "<hr". $this->empty_element_suffix ."\n";
             $text .= "<ol>\n\n";
 
             $attr = "";
@@ -2793,6 +2811,7 @@ class Markdown {
                 $title = $this->encodeAttribute($title);
                 $attr .= " title=\"$title\"";
             }
+            $backlink_text = $this->fn_backlink_html;
             $num = 0;
 
             while (!empty($this->footnotes_ordered))
@@ -2806,22 +2825,25 @@ class Markdown {
 
                 $footnote .= "\n"; // Need to append newline before parsing.
                 $footnote = $this->runBlockGamut("$footnote\n");
-                $footnote = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
-                    array($this, '_appendFootnotes_callback'), $footnote);
+                $footnote = preg_replace_callback(
+                    '{F\x1Afn:(.*?)\x1A:}',
+                    array($this, '_appendFootnotes_callback'),
+                    $footnote
+                );
 
                 $attr = str_replace("%%", ++$num, $attr);
                 $note_id = $this->encodeAttribute($note_id);
 
                 // Prepare backlink, multiple backlinks if multiple references
-                $backlink = "<a href=\"#fnref:$note_id\"$attr>&#8617;</a>";
+                $backlink = "<a href=\"#fnref:$note_id\"$attr>$backlink_text</a>";
                 for ($ref_num = 2; $ref_num <= $ref_count; ++$ref_num)
                 {
-                    $backlink .= " <a href=\"#fnref$ref_num:$note_id\"$attr>&#8617;</a>";
+                    $backlink .= " <a href=\"#fnref$ref_num:$note_id\"$attr>$backlink_text</a>";
                 }
                 // Add backlink to last paragraph; create new paragraph if needed.
                 if (preg_match('{</p>$}', $footnote))
                 {
-                    $footnote = substr($footnote, 0, -4)."&#160;$backlink</p>";
+                    $footnote = substr($footnote, 0, -4) . "&#160;$backlink</p>";
                 }
                 else
                 {
@@ -2829,14 +2851,13 @@ class Markdown {
                 }
 
                 $text .= "<li id=\"fn:$note_id\">\n";
-                $text .= $footnote."\n";
+                $text .= $footnote . "\n";
                 $text .= "</li>\n\n";
             }
 
             $text .= "</ol>\n";
             $text .= "</div>";
         }
-
         return $text;
     }
 
@@ -3400,7 +3421,7 @@ class Markdown {
     {
         if (empty($attr) && !$defaultIdValue && empty($classes))
         {
-            return '';
+            return "";
         }
 
         // Split on components
@@ -3416,17 +3437,17 @@ class Markdown {
             {
                 $classes[] = substr($element, 1);
             }
-            elseif ($element{0} == '#')
+            else if ($element{0} == '#')
             {
                 if ($id === false)
                 {
                     $id = substr($element, 1);
                 }
             }
-            elseif (strpos($element, '=') > 0)
+            else if (strpos($element, '=') > 0)
             {
                 $parts = explode('=', $element, 2);
-                $attributes[] = $parts[0].'="'.$parts[1].'"';
+                $attributes[] = $parts[0] . '="' . $parts[1] . '"';
             }
         }
         if (!$id)
@@ -3435,20 +3456,19 @@ class Markdown {
         }
 
         // compose attributes as string
-        $attr_str = '';
+        $attr_str = "";
         if (!empty($id))
         {
-            $attr_str .= ' id="'.$this->encodeAttribute($id).'"';
+            $attr_str .= ' id="'.$this->encodeAttribute($id) .'"';
         }
         if (!empty($classes))
         {
-            $attr_str .= ' class="'.implode(' ', $classes).'"';
+            $attr_str .= ' class="'. implode(" ", $classes) . '"';
         }
         if (!$this->no_markup && !empty($attributes))
         {
-            $attr_str .= ' '.implode(' ', $attributes);
+            $attr_str .= ' '.implode(" ", $attributes);
         }
-
         return $attr_str;
     }
 
