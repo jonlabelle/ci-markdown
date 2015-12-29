@@ -7,6 +7,7 @@
 - Fixed an issue in MarkdownExtra where long header lines followed by a special
   attribute block would hit the backtrack limit an cause an empty string to be
   returned.
+- Run [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) rules (PSR2 + Symfony).
 
 ## 1.3.5
 
