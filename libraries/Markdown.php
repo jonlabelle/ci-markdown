@@ -15,7 +15,8 @@
  * @license     MIT License (http://opensource.org/licenses/MIT)
  * @author      Jon LaBelle
  * @link        https://github.com/jonlabelle/ci-markdown
- * @version     1.3.5
+ * @version     1.3.6
+ * @version     PHP Markdown Lib 1.6.0
  */
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -375,14 +376,14 @@ class Markdown {
      *
      * @var string
      */
-    protected $id_class_attr_catch_re = '\{((?:[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,})[ ]*\}';
+    protected $id_class_attr_catch_re = '\{((?>[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,})[ ]*\}';
 
     /**
      * Expression to use when parsing in a context when no capture is desired.
      *
      * @var string
      */
-    protected $id_class_attr_nocatch_re = '\{(?:[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,}[ ]*\}';
+    protected $id_class_attr_nocatch_re = '\{(?>[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,}[ ]*\}';
 
     /**
      * Tags that are always treated as block tags.

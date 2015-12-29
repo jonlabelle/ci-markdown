@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.6
+
+**Release Date:** 2015-12-29
+
+- Fixed an issue in MarkdownExtra where long header lines followed by a special
+  attribute block would hit the backtrack limit an cause an empty string to be
+  returned.
+
 ## 1.3.5
 
 **Release Date:** 2015-10-17
