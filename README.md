@@ -1,6 +1,6 @@
 # CI Markdown
 
-CI Markdown is a modified rendition of Michel Fortin's [PHP Markdown][1] 
+CI Markdown is a modified rendition of Michel Fortin's [PHP Markdown][1]
 and [PHP Markdown Extra][2] for [CodeIgniter][3].
 
 ## Install
@@ -12,58 +12,59 @@ and [PHP Markdown Extra][2] for [CodeIgniter][3].
 
 ### Download
 
-Download and extract the [zip][5] release to your CoddeIgniter 
+Download and extract the [zip][5] release to your CoddeIgniter
 `application/libraries/` directory.
 
 **The extracted path should resemble:**
 
 - `application/libraries/Markdown.php`
 
-## Usage
+## Using the Markdown Class
 
-### Loading the library
+### Initializing the Class
 
-**Auto-loading:** (application/config/autoload.php)
-
-```php
-$autoload['libraries'] = array('markdown');
-```
-
-**Manual Loading:** (Controller method)
+Like most other classes in CodeIgniter, the Markdown class is initialized in
+your controller using the `$this->load->library()` method:
 
 ```php
 $this->load->library('markdown');
 ```
 
-### Parsing
+Once loaded, the Markdown library object will be available using:
+
+```php
+$this->markdown
+```
+
+### Examples
 
 #### Markdown Text to HTML
 
 - `$this->markdown->parse()`
 
-Accepts a single `string` parameter of Markdown *text* and returns the parsed 
+Accepts a single `string` parameter of Markdown *text* and returns the parsed
 HTML.
 
-**Example**
-
 ```php
-$markdown = "# Heading "."\n\n"."## Sub-heading"."\n\n";
-echo $this->markdown->parse($markdown);
-<h1>Heading</h1><h2>Sub-heading</h2>
+$this->load->library('markdown');
+
+$markdownText = "# Heading "."\n\n"."## Sub-heading"."\n\n";
+echo $this->markdown->parse($markdownText);
+>>> <h1>Heading</h1><h2>Sub-heading</h2>
 ```
 
 #### Markdown File to HTML
 
 - `$this->markdown->parse_file()`
 
-Accepts a single `string` parameter for a Markdown *file path* and returns the 
+Accepts a single `string` parameter for a Markdown *file path* and returns the
 parsed HTML.
 
-**Example**
-
 ```php
-echo $this->markdown->parse_file('README.md');
-<h1>CI Markdown</h1><p>CI Markdown is a modified rendition...</p>
+$this->load->library('markdown');
+
+echo $this->markdown->parse_file('/path/to/markdown/file.md');
+>>> <h1>CI Markdown</h1><p>CI Markdown is a modified rendition...</p>
 ```
 
 ## Issues
