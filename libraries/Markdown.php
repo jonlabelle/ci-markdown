@@ -112,7 +112,7 @@ class Markdown
     /**
      * Optional filter function for URL's.
      *
-     * @var function
+     * @var callable
      */
     public $url_filter_func = null;
 
@@ -425,21 +425,21 @@ class Markdown
     /**
      * Optional header id="" generation callback function.
      *
-     * @var function
+     * @var callable
      */
     public $header_id_func = null;
 
     /**
      * Optional function for converting code block content to HTML.
      *
-     * @var function
+     * @var callable
      */
     public $code_block_content_func = null;
 
     /**
      * Optional function for converting code span content to HTML.
      *
-     * @var function
+     * @var callable
      */
     public $code_span_content_func = null;
 
