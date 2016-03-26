@@ -7,7 +7,7 @@
  *
  * @category    Libraries
  *
- * @copyright   PHP Markdown Copyright (c) 2004-2015 Michel Fortin
+ * @copyright   PHP Markdown Copyright (c) 2004-2016 Michel Fortin
  *              (https://michelf.ca/projects/php-markdown/)
  * @copyright   Markdown Copyright (c) 2004-2006 John Gruber
  *              (https://daringfireball.net/projects/markdown/)
