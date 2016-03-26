@@ -16,7 +16,7 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.3.6
+ * @version     1.3.7
  * @version     PHP Markdown Lib 1.6.0
  */
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -435,6 +435,13 @@ class Markdown
      * @var function
      */
     public $code_block_content_func = null;
+
+    /**
+     * Optional function for converting code span content to HTML.
+     *
+     * @var function
+     */
+    public $code_span_content_func = null;
 
     /**
      * Enhanced ordered List.
@@ -2397,7 +2404,11 @@ class Markdown
      */
     protected function makeCodeSpan($code)
     {
-        $code = htmlspecialchars(trim($code), ENT_NOQUOTES);
+        if ($this->code_span_content_func) {
+            $code = call_user_func($this->code_span_content_func, $code);
+        } else {
+            $code = htmlspecialchars(trim($code), ENT_NOQUOTES);
+        }
 
         return $this->hashPart("<code>$code</code>");
     }

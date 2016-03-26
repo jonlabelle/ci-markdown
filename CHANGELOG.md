@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.7
+
+**Release Date:** 2016-03-26
+
+- Allow custom content function for code span. Just like the option
+  `$code_block_content_func`, but now for code-span. Can be used to prevent the
+  default `htmlspecialchars` or do some kind of other logic to convert the code
+  to html.
+
 ## 1.3.6
 
 **Release Date:** 2015-12-29
