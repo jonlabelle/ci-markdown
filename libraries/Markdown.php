@@ -72,49 +72,49 @@ class Markdown
      *
      * @var string
      */
-    protected $empty_element_suffix = '>';
+    public $empty_element_suffix = '>';
 
     /**
      * Tab width.
      *
      * @var int
      */
-    protected $tab_width = 2;
+    public $tab_width = 2;
 
     /**
      * Change to `true` to disallow markup.
      *
      * @var bool
      */
-    protected $no_markup = false;
+    public $no_markup = false;
 
     /**
      * Change to `true` to disallow entities.
      *
      * @var bool
      */
-    protected $no_entities = false;
+    public $no_entities = false;
 
     /**
      * Change to `true` to enable line breaks on \n without two trailling spaces.
      *
      * @var bool
      */
-    protected $hard_wrap = false;
+    public $hard_wrap = false;
 
     /**
      * Predefined url's.
      *
      * @var array
      */
-    protected $predef_urls = array();
+    public $predef_urls = array();
 
     /**
      * Predefined titles.
      *
      * @var array
      */
-    protected $predef_titles = array();
+    public $predef_titles = array();
 
     /**
      * Optional filter function for URL's.
@@ -589,7 +589,7 @@ class Markdown
      *
      * @return string
      */
-    protected function transform($text)
+    public function transform($text)
     {
         $this->setup();
 
