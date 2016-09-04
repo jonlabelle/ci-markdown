@@ -16,7 +16,7 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.3.7
+ * @version     1.3.8
  * @version     PHP Markdown Lib 1.6.0
  */
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -94,6 +94,13 @@ class Markdown
      * @var bool
      */
     protected $no_entities = false;
+
+    /**
+     * Change to `true` to enable line breaks on \n without two trailling spaces.
+     *
+     * @var bool
+     */
+    protected $hard_wrap = false;
 
     /**
      * Predefined url's.
@@ -1278,7 +1285,7 @@ class Markdown
     }
 
     /**
-     * Parse hard line breaks.
+     * Do hard breaks.
      *
      * @param string $text
      *
@@ -1286,11 +1293,13 @@ class Markdown
      */
     protected function doHardBreaks($text)
     {
-        return preg_replace_callback(
-            '/ {2,}\n/',
-            array($this, '_doHardBreaks_callback'),
-            $text
-        );
+        if ($this->hard_wrap) {
+            return preg_replace_callback('/ *\n/',
+                array($this, '_doHardBreaks_callback'), $text);
+        } else {
+            return preg_replace_callback('/ {2,}\n/',
+                array($this, '_doHardBreaks_callback'), $text);
+        }
     }
 
     /**

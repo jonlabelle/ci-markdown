@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.8
+
+**Release Date:** 2016-09-04
+
+- Added a `hard_wrap` configuration variable to make all newline characters in
+  the text become `<br>` tags in the HTML output. By default, according to the
+  standard Markdown syntax these newlines are ignored unless they a preceded by
+  two spaces. Thanks to Jonathan Cohlmeyer for the implementation.
+
 ## 1.3.7
 
 **Release Date:** 2016-03-26
