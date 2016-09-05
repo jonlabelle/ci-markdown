@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0
+
+**Release Date:** 2016-09-05
+
+- [PHP Markdown settings](https://michelf.ca/projects/php-markdown/configuration/)
+  can now be specified in the `config/markdown.php` config file.
+
 ## 1.3.8
 
 **Release Date:** 2016-09-04

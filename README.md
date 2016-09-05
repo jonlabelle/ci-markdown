@@ -21,6 +21,11 @@ Download and extract the [zip][5] release to your CoddeIgniter
 
 ## Using the Markdown Class
 
+### Configuration
+
+Customized [PHP Markdown settings](https://michelf.ca/projects/php-markdown/configuration/)
+can be specified in the [config/markdown.php](https://github.com/jonlabelle/ci-markdown/blob/master/config/markdown.php) config file.
+
 ### Initializing the Class
 
 Like most other classes in CodeIgniter, the Markdown class is initialized in

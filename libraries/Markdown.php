@@ -16,13 +16,20 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.3.8
+ * @version     1.4.0
  * @version     PHP Markdown Lib 1.6.0
  */
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Markdown
 {
+    /**
+     * CodeIgniter singleton reference.
+     *
+     * @var object
+     */
+    protected $CI;
+
     /**
      * Regex to match balanced brackets `[]`.
      *
@@ -68,18 +75,18 @@ class Markdown
     protected $escape_chars_re;
 
     /**
-     * Change to ">" for HTML output.
+     * Change to '>' for HTML or ' />' for XHTML.
      *
      * @var string
      */
     public $empty_element_suffix = '>';
 
     /**
-     * Tab width.
+     * The width of indentation of the output markup.
      *
      * @var int
      */
-    public $tab_width = 2;
+    public $tab_width = 4;
 
     /**
      * Change to `true` to disallow markup.
@@ -263,28 +270,28 @@ class Markdown
     public $fn_id_prefix = '';
 
     /**
-     * Optional title attribute for footnote links and backlinks.
+     * Optional title attribute for footnote links.
      *
      * @var string
      */
     public $fn_link_title = '';
 
     /**
-     * Optional title attribute for footnote links and backlinks.
+     * Optional title attribute for footnote backlinks.
      *
      * @var string
      */
     public $fn_backlink_title = '';
 
     /**
-     * Optional class attribute for footnote links and backlinks.
+     * Optional class attribute for footnote links.
      *
      * @var string
      */
     public $fn_link_class = 'footnote-ref';
 
     /**
-     * Optional class attribute for footnote links and backlinks.
+     * Optional class attribute for footnote backlinks.
      *
      * @var string
      */
@@ -471,13 +478,19 @@ class Markdown
      *
      * @var bool
      */
-    public $enhanced_ordered_list = false;
+    public $enhanced_ordered_list = true;
 
     /**
      * ctor.
      */
     public function __construct()
     {
+        // init ci global obj, and "config/markdown.php" settings (if exists)
+        $this->CI = &get_instance();
+        $this->CI->load->config('markdown', true, true);
+        $markdown_config = $this->CI->config->item('markdown');
+        $this->initialize($markdown_config);
+
         $this->_initDetab();
 
         $this->prepareItalicsAndBold();
@@ -500,6 +513,76 @@ class Markdown
         $this->enhanced_ordered_list = true;
 
         log_message('info', 'Markdown Class Initialized');
+    }
+
+    /**
+     * Initializes settings from the specified $config array.
+     *
+     * @param array $markdown_config The markdown config array.
+     */
+    protected function initialize($markdown_config)
+    {
+        if (!is_array($markdown_config)) {
+            return;
+        }
+
+        if (isset($markdown_config['tab_width'])) {
+            $this->tab_width = $markdown_config['tab_width'];
+        }
+        if (isset($markdown_config['no_markup'])) {
+            $this->no_markup = $markdown_config['no_markup'];
+        }
+        if (isset($markdown_config['no_entities'])) {
+            $this->no_entities = $markdown_config['no_entities'];
+        }
+        if (isset($markdown_config['hard_wrap'])) {
+            $this->hard_wrap = $markdown_config['hard_wrap'];
+        }
+        if (isset($markdown_config['predef_urls'])) {
+            $this->predef_urls = $markdown_config['predef_urls'];
+        }
+        if (isset($markdown_config['predef_abbr'])) {
+            $this->predef_abbr = $markdown_config['predef_abbr'];
+        }
+        if (isset($markdown_config['predef_titles'])) {
+            $this->predef_titles = $markdown_config['predef_titles'];
+        }
+        if (isset($markdown_config['fn_id_prefix'])) {
+            $this->fn_id_prefix = $markdown_config['fn_id_prefix'];
+        }
+        if (isset($markdown_config['fn_link_title'])) {
+            $this->fn_link_title = $markdown_config['fn_link_title'];
+        }
+        if (isset($markdown_config['fn_link_title'])) {
+            $this->fn_link_title = $markdown_config['fn_link_title'];
+        }
+        if (isset($markdown_config['fn_backlink_title'])) {
+            $this->fn_backlink_title = $markdown_config['fn_backlink_title'];
+        }
+        if (isset($markdown_config['fn_link_class'])) {
+            $this->fn_link_class = $markdown_config['fn_link_class'];
+        }
+        if (isset($markdown_config['fn_backlink_class'])) {
+            $this->fn_backlink_class = $markdown_config['fn_backlink_class'];
+        }
+        if (isset($markdown_config['fn_backlink_html'])) {
+            $this->fn_backlink_html = $markdown_config['fn_backlink_html'];
+        }
+        if (isset($markdown_config['table_align_class_tmpl'])) {
+            $this->table_align_class_tmpl = $markdown_config['table_align_class_tmpl'];
+        }
+        if (isset($markdown_config['code_class_prefix'])) {
+            $this->code_class_prefix = $markdown_config['code_class_prefix'];
+        }
+        if (isset($markdown_config['code_attr_on_pre'])) {
+            $this->code_attr_on_pre = $markdown_config['code_attr_on_pre'];
+        }
+        if (isset($markdown_config['enhanced_ordered_list'])) {
+            $this->enhanced_ordered_list = $markdown_config['enhanced_ordered_list'];
+        }
+        if (isset($markdown_config['empty_element_suffix'])) {
+            $this->empty_element_suffix = $markdown_config['empty_element_suffix'];
+        }
     }
 
     /**
