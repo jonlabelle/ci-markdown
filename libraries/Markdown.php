@@ -505,9 +505,9 @@ class Markdown
     /**
      * Parses the markdown text to HTML.
      *
-     * @param string $text The markdown formatted text.
+     * @param string $text The markdown formatted text
      *
-     * @return string The HTML formatted markdown.
+     * @return string The HTML formatted markdown
      */
     public function parse($text)
     {
@@ -517,9 +517,9 @@ class Markdown
     /**
      * Parses a markdown formatted file to HTML.
      *
-     * @param string $file Path of markdown file to parse.
+     * @param string $file Path of markdown file to parse
      *
-     * @return mixed The HTML text, or `false` if file does not exist.
+     * @return mixed The HTML text, or `false` if file does not exist
      */
     public function parse_file($file)
     {
@@ -879,7 +879,7 @@ class Markdown
             //
             // Check for: Indented code block.
             //
-            elseif ($tag{0} == "\n" || $tag{0} == ' ') {
+            elseif ($tag[0] == "\n" || $tag[0] == ' ') {
                 // Indented code block: pass it unchanged, will be handled
                 // later.
                 $parsed .= $tag;
@@ -888,7 +888,7 @@ class Markdown
             // Check for: Code span marker
             // Note: need to check this after backtick fenced code blocks
             //
-            elseif ($tag{0} == '`') {
+            elseif ($tag[0] == '`') {
                 // Find corresponding end marker.
                 $tag_re = preg_quote($tag);
                 if (preg_match('{^(?>.+?|\n(?!\n))*?(?<!`)'.$tag_re.'(?!`)}',
@@ -923,7 +923,7 @@ class Markdown
             //            HTML Comments, processing instructions.
             //
             elseif (preg_match('{^<(?:'.$this->clean_tags_re.')\b}', $tag) ||
-                $tag{1} == '!' || $tag{1} == '?') {
+                $tag[1] == '!' || $tag[1] == '?') {
                 // Need to parse tag and following text using the HTML parser.
                 // (don't check for markdown attribute)
                 list($block_text, $text) =
@@ -940,9 +940,9 @@ class Markdown
                 //
                 // Increase/decrease nested tag count.
                 //
-                if ($tag{1} == '/') {
+                if ($tag[1] == '/') {
                     --$depth;
-                } elseif ($tag{strlen($tag) - 2} != '/') {
+                } elseif ($tag[strlen($tag) - 2] != '/') {
                     ++$depth;
                 }
                 if ($depth < 0) {
@@ -1055,7 +1055,7 @@ class Markdown
                 // first character as filtered to prevent an infinite loop in the
                 // parent function.
                 //
-                return array($original_text{0}, substr($original_text, 1));
+                return array($original_text[0], substr($original_text, 1));
             }
 
             $block_text .= $parts[0]; // Text before current tag.
@@ -1067,7 +1067,7 @@ class Markdown
             //    Comments and Processing Instructions.
             //
             if (preg_match('{^</?(?:'.$this->auto_close_tags_re.')\b}', $tag) ||
-                $tag{1} == '!' || $tag{1} == '?') {
+                $tag[1] == '!' || $tag[1] == '?') {
                 // Just add the tag to the block as if it was text.
                 $block_text .= $tag;
             } else {
@@ -1076,9 +1076,9 @@ class Markdown
                 // the tag's name match base tag's.
                 //
                 if (preg_match('{^</?'.$base_tag_name_re.'\b}', $tag)) {
-                    if ($tag{1} == '/') {
+                    if ($tag[1] == '/') {
                         --$depth;
-                    } elseif ($tag{strlen($tag) - 2} != '/') {
+                    } elseif ($tag[strlen($tag) - 2] != '/') {
                         ++$depth;
                     }
                 }
@@ -1430,7 +1430,7 @@ class Markdown
             if (isset($this->titles[$link_id])) {
                 $title = $this->titles[$link_id];
                 $title = $this->encodeAttribute($title);
-                $result .=  " title=\"$title\"";
+                $result .= " title=\"$title\"";
             }
             if (isset($this->ref_attr[$link_id])) {
                 $result .= $this->ref_attr[$link_id];
@@ -1474,7 +1474,7 @@ class Markdown
         $result = "<a href=\"$url\"";
         if (isset($title)) {
             $title = $this->encodeAttribute($title);
-            $result .=  " title=\"$title\"";
+            $result .= " title=\"$title\"";
         }
         $result .= $attr;
 
@@ -1567,7 +1567,7 @@ class Markdown
             if (isset($this->titles[$link_id])) {
                 $title = $this->titles[$link_id];
                 $title = $this->encodeAttribute($title);
-                $result .=  " title=\"$title\"";
+                $result .= " title=\"$title\"";
             }
             if (isset($this->ref_attr[$link_id])) {
                 $result .= $this->ref_attr[$link_id];
@@ -1603,7 +1603,7 @@ class Markdown
 
         if (isset($title)) {
             $title = $this->encodeAttribute($title);
-            $result .=  " title=\"$title\""; // $title already quoted
+            $result .= " title=\"$title\""; // $title already quoted
         }
 
         $result .= $attr;
@@ -1674,7 +1674,7 @@ class Markdown
             return $matches[0];
         }
 
-        $level = $matches[3]{0}
+        $level = $matches[3][0]
         == '=' ? 1 : 2;
 
         $defaultId = is_callable($this->header_id_func) ? call_user_func($this->header_id_func, $matches[1]) : null;
@@ -2144,7 +2144,7 @@ class Markdown
 
         $classes = array();
         if ($classname != '') {
-            if ($classname{0} == '.') {
+            if ($classname[0] == '.') {
                 $classname = substr($classname, 1);
             }
             $classes[] = $this->code_class_prefix.$classname;
@@ -2502,7 +2502,7 @@ class Markdown
                 } else {
                     // Other closing marker: close one em or strong and
                     // change current token state to match the other
-                    $token_stack[0] = str_repeat($token{0}, 3 - $token_len);
+                    $token_stack[0] = str_repeat($token[0], 3 - $token_len);
                     $tag = $token_len == 2 ? 'strong' : 'em';
                     $span = $text_stack[0];
                     $span = $this->runSpanGamut($span);
@@ -2527,7 +2527,7 @@ class Markdown
                 } else {
                     // Reached opening three-char emphasis marker. Push on token
                     // stack; will be handled by the special condition above.
-                    $em = $token{0};
+                    $em = $token[0];
                     $strong = "$em$em";
                     array_unshift($token_stack, $token);
                     array_unshift($text_stack, '');
@@ -3098,7 +3098,7 @@ class Markdown
                 // '@' *must* be encoded. I insist.
                 // '"' and '>' have to be encoded inside the attribute
                 if ($r > 90 && strpos('@"&>', $char) === false) {
-                    /* do nothing */;
+                    /* do nothing */
                 } elseif ($r < 45) {
                     $chars[$key] = '&#x'.dechex($ord).';';
                 } else {
@@ -3182,9 +3182,9 @@ class Markdown
      */
     protected function handleSpanToken($token, &$str)
     {
-        switch ($token{0}) {
+        switch ($token[0]) {
         case '\\':
-            return $this->hashPart('&#'.ord($token{1}).';');
+            return $this->hashPart('&#'.ord($token[1]).';');
         case '`':
             // Search for end marker in remaining text.
             if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm',
@@ -3333,9 +3333,9 @@ class Markdown
         $attributes = array();
         $id = false;
         foreach ($elements as $element) {
-            if ($element{0} == '.') {
+            if ($element[0] == '.') {
                 $classes[] = substr($element, 1);
-            } elseif ($element{0} == '#') {
+            } elseif ($element[0] == '#') {
                 if ($id === false) {
                     $id = substr($element, 1);
                 }
