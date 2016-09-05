@@ -1,6 +1,6 @@
 <?php
 /**
- * CodeIgniter Markdown.
+ * CodeIgniter Markdown
  *
  * Parses Mardown formatted text to HTML. A modified version of Michel Fortin's
  * PHP Markdown for the CodeIgniter Web Framework.
