@@ -24,13 +24,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Markdown
 {
     /**
-     * CodeIgniter singleton reference.
-     *
-     * @var object
-     */
-    protected $CI;
-
-    /**
      * Regex to match balanced brackets `[]`.
      *
      * Needed to insert a maximum bracket depth while converting to PHP.
@@ -485,10 +478,10 @@ class Markdown
      */
     public function __construct()
     {
-        // init ci global obj, and "config/markdown.php" settings (if exists)
-        $this->CI = &get_instance();
-        $this->CI->load->config('markdown', true, true);
-        $markdown_config = $this->CI->config->item('markdown');
+        // load "config/markdown.php" settings (if exists)
+        $CI = &get_instance();
+        $CI->load->config('markdown', true, true);
+        $markdown_config = $CI->config->item('markdown');
         $this->initialize($markdown_config);
 
         $this->_initDetab();
