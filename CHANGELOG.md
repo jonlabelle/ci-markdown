@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.1
+
+**Release Date:** 2016-10-30
+
+- Fixed a Markdwon Extra issue where two-space-at-end-of-line hard breaks
+  wouldn't work inside of HTML block elements such as `<p markdown="1">` where
+  the element expects only span-level content.
+
 ## 1.4.0
 
 **Release Date:** 2016-09-05
