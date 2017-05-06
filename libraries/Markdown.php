@@ -2,7 +2,7 @@
 /**
  * CodeIgniter Markdown
  *
- * Parses Mardown formatted text to HTML. A modified version of Michel Fortin's
+ * Parses Markdown formatted text to HTML. A modified version of Michel Fortin's
  * PHP Markdown for the CodeIgniter Web Framework.
  *
  * @category    Libraries
@@ -35,7 +35,7 @@ class Markdown
     /**
      * Nested brackets.
      *
-     * @var regex
+     * @var string regex
      */
     protected $nested_brackets_re;
 
@@ -1126,7 +1126,7 @@ class Markdown
 
             if (count($parts) < 3) {
                 //
-                // End of $text reached with unbalenced tag(s).
+                // End of $text reached with unbalanced tag(s).
                 // In that case, we return original text unchanged and pass the
                 // first character as filtered to prevent an infinite loop in the
                 // parent function.
