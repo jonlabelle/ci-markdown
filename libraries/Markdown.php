@@ -2522,11 +2522,10 @@ class Markdown
     }
 
     /**
-     * [doItalicsAndBold description].
+     * doItalicsAndBold
      *
-     * @param [type] $text
-     *
-     * @return [type]
+     * @param string $text
+     * @return string
      */
     protected function doItalicsAndBold($text)
     {
@@ -2538,7 +2537,7 @@ class Markdown
 
         while (1) {
             //
-            // Get prepared regular expression for seraching emphasis tokens
+            // Get prepared regular expression for searching emphasis tokens
             // in current context.
             //
             $token_re = $this->em_strong_prepared_relist["$em$strong"];
