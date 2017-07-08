@@ -286,8 +286,9 @@ $config['empty_element_suffix'] = '>';
 | Hash Tag Protection
 | --------------------------------------------------------------------------
 |
-| When true, only convert atx-style headers if there's a
-| space between the header and the "#".
+| When `true`, prevents ATX-style headers with no space after
+| the initial hash from being interpreted as headers. This way
+| those precious hashtags can be preserved.
 |
 | @bool (default = false)
 */
