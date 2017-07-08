@@ -79,9 +79,11 @@ $config['hard_wrap'] = false;
 | list of URLs where the key is the name of the reference.
 |
 | For instance:
+|
 |     $parser->predef_urls = array('ref' => 'https://michelf.ca/');
 |
 | will make this Markdown input to create a link:
+|
 |     This is [my website][ref].
 |
 | @array
