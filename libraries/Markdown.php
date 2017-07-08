@@ -19,7 +19,7 @@
  * @version     1.4.1
  * @version     PHP Markdown Lib 1.7.0
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 
 class Markdown
 {
