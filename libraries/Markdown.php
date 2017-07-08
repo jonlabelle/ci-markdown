@@ -498,7 +498,7 @@ class Markdown
 
         $this->escape_chars_re = '['.preg_quote($this->escape_chars).']';
 
-        // Sort document, block, and span gamut in ascendent priority order.
+        // Sort document, block, and span gamut in ascendant priority order.
         asort($this->document_gamut);
         asort($this->block_gamut);
         asort($this->span_gamut);
@@ -935,7 +935,7 @@ class Markdown
 
             //
             // Check for: Fenced code block marker.
-            // Note: need to recheck the whole tag to disambiguate backtick
+            // Note: need to recheck the whole tag to disambiguate back-tick
             // fences from code spans
             //
             if (preg_match('{^\n?([ ]{0,'.($indent + 3).'})(~{3,}|`{3,})[ ]*(?:\.?[-_:a-zA-Z0-9]+)?[ ]*(?:'.$this->id_class_attr_nocatch_re.')?[ ]*\n?$}', $tag, $capture)) {
