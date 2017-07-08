@@ -6,7 +6,7 @@
 
 Added the `hashtag_protection` configuration variable. When `true`, prevents
 ATX-style headers with no space after the initial hash from being interpreted as
-headers. This way those precious hashtags are preserved.
+headers. This way those precious hashtags can be preserved.
 
 ## 1.4.1
 
