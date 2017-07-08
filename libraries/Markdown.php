@@ -474,8 +474,13 @@ class Markdown
     public $enhanced_ordered_list = true;
 
     /**
-     * ctor.
+     * Only convert atx-style headers if there's a space between
+     * the header and the "#".
+     *
+     * @var bool
      */
+    public $hashtag_protection = false;
+
     public function __construct()
     {
         // load "config/markdown.php" settings (if exists)
@@ -575,6 +580,9 @@ class Markdown
         }
         if (isset($markdown_config['empty_element_suffix'])) {
             $this->empty_element_suffix = $markdown_config['empty_element_suffix'];
+        }
+        if (isset($markdown_config['hashtag_protection'])) {
+            $this->hashtag_protection = $markdown_config['hashtag_protection'];
         }
     }
 
@@ -1716,15 +1724,15 @@ class Markdown
             array($this, '_doHeaders_callback_setext'), $text);
 
         // atx-style headers:
-        // # Header 1        {#header1}
-        // ## Header 2       {#header2}
-        // ## Header 2 with closing hashes ##  {#header3.class1.class2}
-        // ...
-        // ###### Header 6   {.class2}
+        //  # Header 1        {#header1}
+        //  ## Header 2       {#header2}
+        //  ## Header 2 with closing hashes ##  {#header3.class1.class2}
+        //  ...
+        //  ###### Header 6   {.class2}
         //
         $text = preg_replace_callback('{
                 ^(\#{1,6})  # $1 = string of #\'s
-                [ ]*
+                [ ]'.($this->hashtag_protection ? '+' : '*').'
                 (.+?)       # $2 = Header text
                 [ ]*
                 \#*         # optional closing #\'s (not counted)

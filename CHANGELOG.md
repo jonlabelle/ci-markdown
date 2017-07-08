@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.2
+
+**Release Date:** 2017-07-08
+
+Added the `hashtag_protection` configuration variable. When `true`, prevents
+ATX-style headers with no space after the initial hash from being interpreted as
+headers. This way those precious hashtags are preserved.
+
 ## 1.4.1
 
 **Release Date:** 2016-10-30

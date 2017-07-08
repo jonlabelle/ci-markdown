@@ -19,8 +19,7 @@
 | to 8 will make parser treat a tab character as two levels
 | of indentation.
 |
-| @int
-| @default 4
+| @int (default = 4)
 */
 $config['tab_width'] = 4;
 
@@ -33,11 +32,10 @@ $config['tab_width'] = 4;
 | in the input from being passed to the output.
 |
 | Important: This is not a protection against malicious
-| javascript being injected in a document.
-| See why in Markdown and XSS (https://michelf.ca/blog/2010/markdown-and-xss/)
+| javascript being injected in a document. See why in
+| Markdown and XSS https://michelf.ca/blog/2010/markdown-and-xss/
 |
-| @bool
-| @default false
+| @bool (default = false)
 */
 $config['no_markup'] = false;
 
@@ -52,8 +50,7 @@ $config['no_markup'] = false;
 | HTML output will be &amp;tl; and once shown in shown
 | the browser it will match perfectly what was written.
 |
-| @bool
-| @default false
+| @bool (default = false)
 */
 $config['no_entities'] = false;
 
@@ -65,8 +62,7 @@ $config['no_entities'] = false;
 | Change to `true` to enable line breaks on "\n" without
 | two trailing spaces.
 |
-| @bool
-| @default false
+| @bool (default = false)
 */
 $config['hard_wrap'] = false;
 
@@ -86,8 +82,7 @@ $config['hard_wrap'] = false;
 |
 |     This is [my website][ref].
 |
-| @array
-| @default array()
+| @array (default = array())
 */
 $config['predef_urls'] = array();
 
@@ -100,8 +95,7 @@ $config['predef_urls'] = array();
 | passed in predef_urls. As for predef_urls, the key is
 | the reference name.
 |
-| @array
-| @default array()
+| @array (default = array())
 */
 $config['predef_titles'] = array();
 
@@ -116,8 +110,7 @@ $config['predef_titles'] = array();
 |
 | See: https://michelf.ca/projects/php-markdown/extra/#abbr
 |
-| @array
-| @default array()
+| @array (default = array())
 */
 $config['predef_abbr'] = array();
 
@@ -131,8 +124,7 @@ $config['predef_abbr'] = array();
 | displayed inside one HTML document to avoid footnote
 | ids to clash each other.
 |
-| @string
-| @default ''
+| @string (default = '')
 */
 $config['fn_id_prefix'] = '';
 
@@ -143,8 +135,7 @@ $config['fn_id_prefix'] = '';
 |
 | Optional title attribute for footnote links.
 |
-| @string
-| @default ''
+| @string (default = '')
 */
 $config['fn_link_title'] = '';
 
@@ -155,8 +146,7 @@ $config['fn_link_title'] = '';
 |
 | Optional title attribute for footnote back-links.
 |
-| @string
-| @default ''
+| @string (default = '')
 */
 $config['fn_backlink_title'] = '';
 
@@ -167,8 +157,7 @@ $config['fn_backlink_title'] = '';
 |
 | Optional class attribute for footnote links.
 |
-| @string
-| @default 'footnote-ref'
+| @string (default = 'footnote-ref')
 */
 $config['fn_link_class'] = 'footnote-ref';
 
@@ -179,8 +168,7 @@ $config['fn_link_class'] = 'footnote-ref';
 |
 | Optional class attribute for footnote back-links.
 |
-| @string
-| @default 'footnote-backref'
+| @string (default = 'footnote-backref')
 */
 $config['fn_backlink_class'] = 'footnote-backref';
 
@@ -194,8 +182,7 @@ $config['fn_backlink_class'] = 'footnote-backref';
 | being rendered as an emoji on mobile devices, but it might
 | cause an unrecognized character to appear on older browsers.
 |
-| @string
-| @default '&#8617;&#xFE0E;'
+| @string (default = '&#8617;&#xFE0E;')
 */
 $config['fn_backlink_html'] = '&#8617;&#xFE0E;';
 
@@ -216,8 +203,7 @@ $config['fn_backlink_html'] = '&#8617;&#xFE0E;';
 | variable is "go-%%" and the cell is right-aligned, the
 | result will be: class="go-right".
 |
-| @string
-| @default ''
+| @string (default = '')
 */
 $config['table_align_class_tmpl'] = '';
 
@@ -241,8 +227,7 @@ $config['table_align_class_tmpl'] = '';
 |     <br>
 |     ~~~~
 |
-| @string
-| @default ''
+| @string (default = '')
 */
 $config['code_class_prefix'] = '';
 
@@ -255,8 +240,7 @@ $config['code_class_prefix'] = '';
 | blocks will go on the <code> tag; setting this to
 | true will put attributes on the <pre> tag instead.
 |
-| @bool
-| @default false
+| @bool (default = false)
 */
 $config['code_attr_on_pre'] = false;
 
@@ -281,8 +265,7 @@ $config['code_attr_on_pre'] = false;
 |         <li>List item three</li>
 |     </ol>
 |
-| @bool
-| @default true
+| @bool (default = true)
 */
 $config['enhanced_ordered_list'] = true;
 
@@ -294,7 +277,18 @@ $config['enhanced_ordered_list'] = true;
 | This is the string used to close tags for HTML elements
 | with no content such as <br> and <hr>.
 |
-| @string
-| @default '>'
+| @string (default = '>')
 */
 $config['empty_element_suffix'] = '>';
+
+/*
+| --------------------------------------------------------------------------
+| Hash Tag Protection
+| --------------------------------------------------------------------------
+|
+| When true, only convert atx-style headers if there's a
+| space between the header and the "#".
+|
+| @bool (default = false)
+*/
+$config['hashtag_protection'] = false;
