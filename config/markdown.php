@@ -1,9 +1,13 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed');
 
-/**
- * Configuration file for the CodeIgniter Markdown
- * (https://github.com/jonlabelle/ci-markdown) library.
- */
+/*
+| --------------------------------------------------------------------------
+| CodeIgniter Markdown Settings
+| --------------------------------------------------------------------------
+|
+| Configuration settings for the CodeIgniter Markdown library.
+| https://github.com/jonlabelle/ci-markdown
+*/
 
 /*
 | --------------------------------------------------------------------------
