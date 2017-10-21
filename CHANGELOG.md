@@ -1,18 +1,25 @@
 # Changelog
 
+## 1.4.3
+
+**Release Date:** 2017-10-21
+
+- Avoid unnecessary reentrancy in `doItalicsAndBold`.
+- Reset the state for regular emphasis when unwinding in `toItalicsAndBold`.
+
 ## 1.4.2
 
 **Release Date:** 2017-07-08
 
 Added the `hashtag_protection` configuration variable. When `true`, prevents
 ATX-style headers with no space after the initial hash from being interpreted as
-headers. This way those precious hashtags can be preserved.
+headers. This way those precious hash-tags can be preserved.
 
 ## 1.4.1
 
 **Release Date:** 2016-10-30
 
-- Fixed a Markdwon Extra issue where two-space-at-end-of-line hard breaks
+- Fixed a Markdown Extra issue where two-space-at-end-of-line hard breaks
   wouldn't work inside of HTML block elements such as `<p markdown="1">` where
   the element expects only span-level content.
 

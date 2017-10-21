@@ -16,7 +16,7 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.4.2
+ * @version     1.4.3
  * @version     PHP Markdown Lib 1.7.0
  */
 defined('BASEPATH') || exit('No direct script access allowed');
@@ -150,6 +150,13 @@ class Markdown
      * @var bool
      */
     protected $in_anchor = false;
+
+    /**
+     * Status flag to avoid invalid nesting.
+     *
+     * @var boolean
+     */
+    protected $in_emphasis_processing = false;
 
     /**
      * These are all the transformations that form block-level. Tags like
@@ -624,6 +631,7 @@ class Markdown
         $this->titles = $this->predef_titles;
         $this->html_hashes = array();
         $this->in_anchor = false;
+        $this->in_emphasis_processing = false;
 
         // extra
         $this->footnotes = array();
@@ -2537,6 +2545,11 @@ class Markdown
      */
     protected function doItalicsAndBold($text)
     {
+        if ($this->in_emphasis_processing) {
+            return $text; // avoid reentrency
+        }
+        $this->in_emphasis_processing = true;
+
         $token_stack = array('');
         $text_stack = array('');
         $em = '';
@@ -2621,6 +2634,7 @@ class Markdown
                     if (strlen($token_stack[0]) == 1) {
                         $text_stack[1] .= array_shift($token_stack);
                         $text_stack[0] .= array_shift($text_stack);
+                        $em = '';
                     }
                     // Closing strong marker:
                     array_shift($token_stack);
@@ -2655,6 +2669,8 @@ class Markdown
                 }
             }
         }
+
+        $this->in_emphasis_processing = false;
 
         return $text_stack[0];
     }
