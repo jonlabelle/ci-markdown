@@ -91,8 +91,8 @@ See the [Changelog][7] page.
 
 [1]: https://michelf.ca/projects/php-markdown/
 [2]: https://michelf.ca/projects/php-markdown/extra/
-[3]: http://www.codeigniter.com
-[4]: http://php.net
+[3]: https://www.codeigniter.com
+[4]: https://php.net
 [5]: https://github.com/jonlabelle/ci-markdown/archive/master.zip
 [6]: https://github.com/jonlabelle/ci-markdown/issues/new
 [7]: https://github.com/jonlabelle/ci-markdown/blob/master/CHANGELOG.md
