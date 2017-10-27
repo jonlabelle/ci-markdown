@@ -1,13 +1,9 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed');
 
 /*
-| --------------------------------------------------------------------------
-| CodeIgniter Markdown Settings
-| --------------------------------------------------------------------------
-|
-| Configuration settings for the CodeIgniter Markdown library.
-| https://github.com/jonlabelle/ci-markdown
-*/
+ * Configuration settings for the CodeIgniter Markdown Library
+ * <https://github.com/jonlabelle/ci-markdown>
+ */
 
 /*
 | --------------------------------------------------------------------------
@@ -25,6 +21,7 @@
 |
 | @int (default = 4)
 */
+
 $config['tab_width'] = 4;
 
 /*
@@ -41,6 +38,7 @@ $config['tab_width'] = 4;
 |
 | @bool (default = false)
 */
+
 $config['no_markup'] = false;
 
 /*
@@ -56,6 +54,7 @@ $config['no_markup'] = false;
 |
 | @bool (default = false)
 */
+
 $config['no_entities'] = false;
 
 /*
@@ -68,6 +67,7 @@ $config['no_entities'] = false;
 |
 | @bool (default = false)
 */
+
 $config['hard_wrap'] = false;
 
 /*
@@ -88,6 +88,7 @@ $config['hard_wrap'] = false;
 |
 | @array (default = array())
 */
+
 $config['predef_urls'] = array();
 
 /*
@@ -101,6 +102,7 @@ $config['predef_urls'] = array();
 |
 | @array (default = array())
 */
+
 $config['predef_titles'] = array();
 
 /*
@@ -116,6 +118,7 @@ $config['predef_titles'] = array();
 |
 | @array (default = array())
 */
+
 $config['predef_abbr'] = array();
 
 /*
@@ -130,6 +133,7 @@ $config['predef_abbr'] = array();
 |
 | @string (default = '')
 */
+
 $config['fn_id_prefix'] = '';
 
 /*
@@ -141,6 +145,7 @@ $config['fn_id_prefix'] = '';
 |
 | @string (default = '')
 */
+
 $config['fn_link_title'] = '';
 
 /*
@@ -152,6 +157,7 @@ $config['fn_link_title'] = '';
 |
 | @string (default = '')
 */
+
 $config['fn_backlink_title'] = '';
 
 /*
@@ -163,6 +169,7 @@ $config['fn_backlink_title'] = '';
 |
 | @string (default = 'footnote-ref')
 */
+
 $config['fn_link_class'] = 'footnote-ref';
 
 /*
@@ -174,6 +181,7 @@ $config['fn_link_class'] = 'footnote-ref';
 |
 | @string (default = 'footnote-backref')
 */
+
 $config['fn_backlink_class'] = 'footnote-backref';
 
 /*
@@ -188,6 +196,7 @@ $config['fn_backlink_class'] = 'footnote-backref';
 |
 | @string (default = '&#8617;&#xFE0E;')
 */
+
 $config['fn_backlink_html'] = '&#8617;&#xFE0E;';
 
 /*
@@ -209,6 +218,7 @@ $config['fn_backlink_html'] = '&#8617;&#xFE0E;';
 |
 | @string (default = '')
 */
+
 $config['table_align_class_tmpl'] = '';
 
 /*
@@ -233,6 +243,7 @@ $config['table_align_class_tmpl'] = '';
 |
 | @string (default = '')
 */
+
 $config['code_class_prefix'] = '';
 
 /*
@@ -246,6 +257,7 @@ $config['code_class_prefix'] = '';
 |
 | @bool (default = false)
 */
+
 $config['code_attr_on_pre'] = false;
 
 /*
@@ -271,6 +283,7 @@ $config['code_attr_on_pre'] = false;
 |
 | @bool (default = true)
 */
+
 $config['enhanced_ordered_list'] = true;
 
 /*
@@ -283,6 +296,7 @@ $config['enhanced_ordered_list'] = true;
 |
 | @string (default = '>')
 */
+
 $config['empty_element_suffix'] = '>';
 
 /*
@@ -296,4 +310,5 @@ $config['empty_element_suffix'] = '>';
 |
 | @bool (default = false)
 */
+
 $config['hashtag_protection'] = false;
