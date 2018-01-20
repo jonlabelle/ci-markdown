@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.4
+
+**Release Date:** 2018-01-20
+
+- HTML output for Markdown Extra footnotes now include `role` attributes with
+  values from [WAI-ARIA](https://www.w3.org/TR/dpub-aria/) to make them more
+  accessible.
+
+
 ## 1.4.3
 
 **Release Date:** 2017-10-21

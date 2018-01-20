@@ -2,12 +2,14 @@
 /**
  * CodeIgniter Markdown
  *
- * Parses Markdown formatted text to HTML. A modified version of Michel Fortin's
- * PHP Markdown for the CodeIgniter Web Framework.
+ * Parses Markdown formatted text to HTML.
+ *
+ * A modified version of Michel Fortin's PHP Markdown
+ * for the CodeIgniter Web Framework.
  *
  * @category    Libraries
  *
- * @copyright   PHP Markdown Copyright (c) 2004-2017 Michel Fortin
+ * @copyright   PHP Markdown Copyright (c) 2004-2018 Michel Fortin
  *              (https://michelf.ca/projects/php-markdown/)
  * @copyright   Markdown Copyright (c) 2004-2006 John Gruber
  *              (https://daringfireball.net/projects/markdown/)
@@ -16,8 +18,8 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.4.3
- * @version     PHP Markdown Lib 1.7.0
+ * @version     1.4.4
+ * @version     PHP Markdown Lib 1.8.0
  */
 defined('BASEPATH') || exit('No direct script access allowed');
 
@@ -2818,15 +2820,12 @@ class Markdown
      */
     protected function appendFootnotes($text)
     {
-        $text = preg_replace_callback(
-            '{F\x1Afn:(.*?)\x1A:}',
-            array($this, '_appendFootnotes_callback'),
-            $text
-        );
+        $text = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
+            array($this, '_appendFootnotes_callback'), $text);
 
         if (!empty($this->footnotes_ordered)) {
             $text .= "\n\n";
-            $text .= "<div class=\"footnotes\">\n";
+            $text .= "<div class=\"footnotes\" role=\"doc-endnotes\">\n";
             $text .= '<hr'.$this->empty_element_suffix."\n";
             $text .= "<ol>\n\n";
 
@@ -2840,7 +2839,9 @@ class Markdown
                 $title = $this->fn_backlink_title;
                 $title = $this->encodeAttribute($title);
                 $attr .= " title=\"$title\"";
+                $attr .= " aria-label=\"$title\"";
             }
+            $attr .= ' role="doc-backlink"';
             $backlink_text = $this->fn_backlink_html;
             $num = 0;
 
@@ -2854,11 +2855,8 @@ class Markdown
 
                 $footnote .= "\n"; // Need to append newline before parsing.
                 $footnote = $this->runBlockGamut("$footnote\n");
-                $footnote = preg_replace_callback(
-                    '{F\x1Afn:(.*?)\x1A:}',
-                    array($this, '_appendFootnotes_callback'),
-                    $footnote
-                );
+                $footnote = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
+                    array($this, '_appendFootnotes_callback'), $footnote);
 
                 $attr = str_replace('%%', ++$num, $attr);
                 $note_id = $this->encodeAttribute($note_id);
@@ -2875,7 +2873,7 @@ class Markdown
                     $footnote .= "\n\n<p>$backlink</p>";
                 }
 
-                $text .= "<li id=\"fn:$note_id\">\n";
+                $text .= "<li id=\"fn:$note_id\" role=\"doc-endnote\">\n";
                 $text .= $footnote."\n";
                 $text .= "</li>\n\n";
             }
@@ -2888,8 +2886,7 @@ class Markdown
     }
 
     /**
-     * Create footnote marker only if it has a corresponding footnote *and* the
-     * footnote hasn't been used by another marker.
+     * Callback for appending footnotes.
      *
      * @param array $matches
      *
@@ -2898,6 +2895,9 @@ class Markdown
     protected function _appendFootnotes_callback($matches)
     {
         $node_id = $this->fn_id_prefix.$matches[1];
+
+        // Create footnote marker only if it has a corresponding footnote *and*
+        // the footnote hasn't been used by another marker.
         if (isset($this->footnotes[$node_id])) {
             $num = &$this->footnotes_numbers[$node_id];
             if (!isset($num)) {
@@ -2922,12 +2922,13 @@ class Markdown
                 $title = $this->encodeAttribute($title);
                 $attr .= " title=\"$title\"";
             }
+            $attr .= ' role="doc-noteref"';
 
             $attr = str_replace('%%', $num, $attr);
             $node_id = $this->encodeAttribute($node_id);
 
             return
-            "<sup id=\"fnref$ref_count_mark:$node_id\">".
+                "<sup id=\"fnref$ref_count_mark:$node_id\">".
                 "<a href=\"#fn:$node_id\"$attr>$num</a>".
                 '</sup>';
         }
