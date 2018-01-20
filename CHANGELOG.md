@@ -8,7 +8,6 @@
   values from [WAI-ARIA](https://www.w3.org/TR/dpub-aria/) to make them more
   accessible.
 
-
 ## 1.4.3
 
 **Release Date:** 2017-10-21
