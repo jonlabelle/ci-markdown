@@ -490,9 +490,12 @@ class Markdown
      */
     public $hashtag_protection = false;
 
+    /**
+     * Markdown constructor.
+     */
     public function __construct()
     {
-        // load "config/markdown.php" settings (if exists)
+        /** @var CI_Controller $CI */
         $CI = &get_instance();
         $CI->load->config('markdown', true, true);
         $markdown_config = $CI->config->item('markdown');
