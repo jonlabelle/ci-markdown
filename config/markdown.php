@@ -312,3 +312,17 @@ $config['empty_element_suffix'] = '>';
 */
 
 $config['hashtag_protection'] = false;
+
+/*
+| --------------------------------------------------------------------------
+| Omit Footnotes
+| --------------------------------------------------------------------------
+|
+| Determines whether footnotes should be appended to the end
+| of the document. If true, footnote html can be retrieved from
+| $this->footnotes_assembled.
+|
+| @bool (default = false)
+*/
+
+$config['omit_footnotes'] = false;
