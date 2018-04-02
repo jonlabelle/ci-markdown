@@ -304,9 +304,9 @@ $config['empty_element_suffix'] = '>';
 | Hash Tag Protection
 | --------------------------------------------------------------------------
 |
-| When `true`, prevents ATX-style headers with no space after
+| When true, prevents ATX-style headers with no space after
 | the initial hash from being interpreted as headers. This way
-| those precious hashtags can be preserved.
+| those precious hash tags can be preserved.
 |
 | @bool (default = false)
 */
