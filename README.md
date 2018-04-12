@@ -1,7 +1,7 @@
 # Codeigniter Markdown
 
 Folk of CI Markdown, a library that parses files or text and renders html, 
-a modified rendition of Michel Fortin's [PHP Markdown][1] and [PHP Markdown Extra][2] for [CodeIgniter][3].
+a modified rendition of Michel Fortin's PHP Markdown and PHP Markdown Extra
 
 **This library only renders the Markdown text/strings for output, for input and write to file need simple editor**
 
@@ -15,6 +15,7 @@ a modified rendition of Michel Fortin's [PHP Markdown][1] and [PHP Markdown Extr
 comes included with CodeigniterPowered, but for CI 2 or CI3:
 
 `wget https://github.com/codeigniterpower/codeigniter-markdown/blob/codeigniterpower-master/libraries/Markdown.php -O application/libraries/Markdown.php`
+
 `wget https://github.com/codeigniterpower/codeigniter-markdown/blob/codeigniterpower-master/config/markdown.php -O application/config/markdown.php`
 
 # Using the Markdown Class
