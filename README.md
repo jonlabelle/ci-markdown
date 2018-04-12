@@ -1,35 +1,34 @@
-# CI Markdown
+# Codeigniter Markdown
 
-CI Markdown is a modified rendition of Michel Fortin's [PHP Markdown][1]
-and [PHP Markdown Extra][2] for [CodeIgniter][3].
+Folk of CI Markdown, a library that parses files or text and renders html, 
+a modified rendition of Michel Fortin's [PHP Markdown][1] and [PHP Markdown Extra][2] for [CodeIgniter][3].
 
-## Install
+**This library only renders the Markdown text/strings for output, for input and write to file need simple editor**
 
 ### Requirements
 
-- [PHP][4] version 5.2.4 or newer
-- [CodeIgniter][3] version 2.x – v3.x
+- php 5.2.4 or newer
+- CodeIgniter 2.x or v3.x
 
-### Download
+### Install
 
-Download and extract the [zip][5] release to your CoddeIgniter
-`application/libraries/` directory.
+comes included with CodeigniterPowered, but for CI 2 or CI3:
 
-**The extracted path should resemble:**
+`wget https://github.com/codeigniterpower/codeigniter-markdown/blob/codeigniterpower-master/libraries/Markdown.php -O application/libraries/Markdown.php`
+`wget https://github.com/codeigniterpower/codeigniter-markdown/blob/codeigniterpower-master/config/markdown.php -O application/config/markdown.php`
 
-- `application/libraries/Markdown.php`
+# Using the Markdown Class
 
-## Using the Markdown Class
+In controlers or in the views.
 
 ### Configuration
 
-Customized [PHP Markdown settings](https://michelf.ca/projects/php-markdown/configuration/)
-can be specified in the [config/markdown.php](https://github.com/jonlabelle/ci-markdown/blob/master/config/markdown.php) config file.
+Customized [PHP Markdown settings (click for reference)](https://michelf.ca/projects/php-markdown/configuration/)
+can be specified in the `config/markdown.php` config file.
 
 ### Initializing the Class
 
-Like most other classes in CodeIgniter, the Markdown class is initialized in
-your controller using the `$this->load->library()` method:
+In your controller using the `$this->load->library()` method:
 
 ```php
 $this->load->library('markdown');
@@ -74,25 +73,16 @@ echo $this->markdown->parse_file('/path/to/markdown/file.md');
 
 ## Issues
 
-For all issues including feature requests, please [open a new issue][6].
+This is specific AD-HOC folk for Codeigniter-powered, see original project for.
 
-## Changes
-
-See the [Changelog][7] page.
+https://github.com/jonlabelle/ci-markdown/issues/new
 
 ## Credits
 
-- [John Gruber](http://daringfireball.net/)
-- [Michel Fortin](https://michelf.ca/home/)
+- John Gruber: http://daringfireball.net/
+- Michel Fortin: https://michelf.ca/home/
 
 ## Author
 
 - Jon LaBelle <contact@jonlabelle.com>
 
-[1]: https://michelf.ca/projects/php-markdown/
-[2]: https://michelf.ca/projects/php-markdown/extra/
-[3]: https://www.codeigniter.com
-[4]: https://php.net
-[5]: https://github.com/jonlabelle/ci-markdown/archive/master.zip
-[6]: https://github.com/jonlabelle/ci-markdown/issues/new
-[7]: https://github.com/jonlabelle/ci-markdown/blob/master/CHANGELOG.md
