@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.4.5
+
+**Release Date:** 2018-04-01
+
+- Added configuration variable `omit_footnotes`. When `true` footnotes are *not*
+  appended at the end of the generated HTML, and the `footnotes_assembled`
+  variable will contain the HTML for the footnote list, allowing footnotes to be
+  moved somewhere else on the page.
+
+  **NOTE:** when placing the content of `footnotes_assembled` on the page, consider
+  adding the attribute `role="doc-endnotes"` to the `<div>` or `<section>` that
+  will enclose the list of footnotes so they are reachable to accessibility
+  tools the same way they would be with the default HTML output.
+
+## 1.4.4
+
+**Release Date:** 2018-01-20
+
+- HTML output for Markdown Extra footnotes now include `role` attributes with
+  values from [WAI-ARIA](https://www.w3.org/TR/dpub-aria/) to make them more
+  accessible.
+
 ## 1.4.3
 
 **Release Date:** 2017-10-21

@@ -304,11 +304,25 @@ $config['empty_element_suffix'] = '>';
 | Hash Tag Protection
 | --------------------------------------------------------------------------
 |
-| When `true`, prevents ATX-style headers with no space after
+| When true, prevents ATX-style headers with no space after
 | the initial hash from being interpreted as headers. This way
-| those precious hashtags can be preserved.
+| those precious hash tags can be preserved.
 |
 | @bool (default = false)
 */
 
 $config['hashtag_protection'] = false;
+
+/*
+| --------------------------------------------------------------------------
+| Omit Footnotes
+| --------------------------------------------------------------------------
+|
+| Determines whether footnotes should be appended to the end
+| of the document. If true, footnote html can be retrieved from
+| $this->footnotes_assembled.
+|
+| @bool (default = false)
+*/
+
+$config['omit_footnotes'] = false;
