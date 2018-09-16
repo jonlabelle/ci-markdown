@@ -3,7 +3,7 @@
 Powered rendering libray that parses files of text and renders html output for codeigniter.
 
 It's convert the static contents of a text files (like thist) and will output a formatted html web page, of any markdown text file or markdown string parameter. Of course, its not an editor, its the utillity that take the contents and renders as html.
-Tis its a folk of CI Markdown, a library that parses files or text and renders html, 
+Tis its a folk of CI Markdown, **a library/class that parses files or text and renders html**, 
 a modified rendition of Michel Fortin's PHP Markdown and PHP Markdown Extra
 
 ## FEATURES
