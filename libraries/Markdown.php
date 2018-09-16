@@ -552,6 +552,7 @@ class Markdown
     protected function initialize($markdown_config)
     {
         if (!is_array($markdown_config)) {
+            log_message('info', 'Markdown Class Error config, no init');
             return;
         }
 

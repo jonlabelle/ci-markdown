@@ -1,35 +1,57 @@
-# CI Markdown
+# Codeigniter - Markdown
 
-CI Markdown is a modified rendition of Michel Fortin's [PHP Markdown][1]
-and [PHP Markdown Extra][2] for [CodeIgniter][3].
+Powered rendering libray that parses files of text and renders html output for codeigniter.
 
-## Install
+It's convert the static contents of a text files (like thist) and will output a formatted html web page, of any markdown text file or markdown string parameter. Of course, its not an editor, its the utillity that take the contents and renders as html.
+Tis its a folk of CI Markdown, **a library/class that parses files or text and renders html**, 
+a modified rendition of Michel Fortin's PHP Markdown and PHP Markdown Extra
 
-### Requirements
+## FEATURES
 
-- [PHP][4] version 5.2.4 or newer
-- [CodeIgniter][3] version 2.x – v3.x
+*  **Simple mardkdown rendering helper/class**. to get string and out that as html page.
 
-### Download
+## INSTALLING
 
-Download and extract the [zip][5] release to your CoddeIgniter
-`application/libraries/` directory.
+Comes included with CodeigniterPowered, but for CI 2 or CI3:
 
-**The extracted path should resemble:**
+**Requirements**
 
-- `application/libraries/Markdown.php`
+* Codeigniter 2.x or 3.x
 
-## Using the Markdown Class
+**Manual controlled install**
 
-### Configuration
+**1)** Located your Codeigniter proyect and then download the repository at the `Applications` root directory
 
-Customized [PHP Markdown settings](https://michelf.ca/projects/php-markdown/configuration/)
-can be specified in the [config/markdown.php](https://github.com/jonlabelle/ci-markdown/blob/master/config/markdown.php) config file.
+`wget https://github.com/codeigniterpower/codeigniter-markdown/blob/codeigniterpower-master/libraries/Markdown.php -O libraries/Markdown.php`
+
+`wget https://github.com/codeigniterpower/codeigniter-markdown/blob/codeigniterpower-master/config/markdown.php -O config/markdown.php`
+
+**2)** The contents must be two files at that places:
+
+* `config/markdown.php` 
+* `libraries/Markdown.php`
+
+**3)** Then, just In controlers or in the views:
+    
+``` php
+$this->load->library('markdown');
+echo $this->markdown->parse("# title "."\n\n"."normal text: hello world"."\n\n");
+```
+
+Now the output wil renders a "H1" tag title and some text.
+
+
+## CONFIGURATION
+
+Wil be located at the `config/markdown.php` file, and heres the documentation: https://michelf.ca/projects/php-markdown/configuration/#markdown .
+
+## USAGE
+
+**As simple as load and parse text** On each request and response, at controllers or views:
 
 ### Initializing the Class
 
-Like most other classes in CodeIgniter, the Markdown class is initialized in
-your controller using the `$this->load->library()` method:
+In your controller using the `$this->load->library()` method:
 
 ```php
 $this->load->library('markdown');
@@ -72,27 +94,10 @@ echo $this->markdown->parse_file('/path/to/markdown/file.md');
 >>> <h1>CI Markdown</h1><p>CI Markdown is a modified rendition...</p>
 ```
 
-## Issues
-
-For all issues including feature requests, please [open a new issue][6].
-
-## Changes
-
-See the [Changelog][7] page.
-
 ## Credits
 
-- [John Gruber](http://daringfireball.net/)
-- [Michel Fortin](https://michelf.ca/home/)
-
-## Author
+This is specific AD-HOC folk for Codeigniter-powered, see original project for.
 
 - Jon LaBelle <contact@jonlabelle.com>
 
-[1]: https://michelf.ca/projects/php-markdown/
-[2]: https://michelf.ca/projects/php-markdown/extra/
-[3]: https://www.codeigniter.com
-[4]: https://php.net
-[5]: https://github.com/jonlabelle/ci-markdown/archive/master.zip
-[6]: https://github.com/jonlabelle/ci-markdown/issues/new
-[7]: https://github.com/jonlabelle/ci-markdown/blob/master/CHANGELOG.md
+https://github.com/jonlabelle/ci-markdown/issues/new
