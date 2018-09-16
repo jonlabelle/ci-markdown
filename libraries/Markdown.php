@@ -1,6 +1,6 @@
 <?php
 /**
- * CodeIgniter Markdown
+ * CodeIgniter Markdown.
  *
  * Parses Markdown formatted text to HTML.
  *
@@ -18,7 +18,7 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.4.5
+ * @version     1.4.6
  * @version     PHP Markdown Lib 1.8.0
  */
 defined('BASEPATH') || exit('No direct script access allowed');
@@ -27,7 +27,6 @@ class Markdown
 {
     /**
      * Regex to match balanced brackets `[]`.
-     *
      * Needed to insert a maximum bracket depth while converting to PHP.
      *
      * @var int
@@ -98,7 +97,8 @@ class Markdown
     public $no_entities = false;
 
     /**
-     * Change to `true` to enable line breaks on \n without two trailling spaces.
+     * Change to `true` to enable line breaks on \n without two trailing
+     * spaces.
      *
      * @var bool
      */
@@ -156,7 +156,7 @@ class Markdown
     /**
      * Status flag to avoid invalid nesting.
      *
-     * @var boolean
+     * @var bool
      */
     protected $in_emphasis_processing = false;
 
@@ -388,6 +388,8 @@ class Markdown
      */
     protected $footnote_counter = 1;
 
+    protected $ref_attr = array();
+
     /**
      * Expression to use to catch attributes (includes the braces).
      *
@@ -461,22 +463,17 @@ class Markdown
 
     /**
      * Enhanced ordered List.
-     *
      * Class attribute to toggle "enhanced ordered list" behaviour setting this
      * to true will allow ordered lists to start from the index number that is
      * defined first.
-     *
      * For example:
-     *
      *     2. List item two
      *     3. List item three
-     *
      * becomes...
-     *
      *     <ol start="2">
      *         <li>List item two</li>
      *         <li>List item three</li>
-     *     </ol>
+     *     </ol>.
      *
      * @var bool
      */
@@ -502,7 +499,6 @@ class Markdown
     /**
      * After parsing, the HTML for the list of footnotes appears here.
      * This is available only if $omit_footnotes == true.
-     *
      * Note: when placing the content of `footnotes_assembled` on the page,
      * consider adding the attribute `role="doc-endnotes"` to the `div` or
      * `section` that will enclose the list of footnotes so they are
@@ -551,7 +547,7 @@ class Markdown
     /**
      * Initializes settings from the specified $config array.
      *
-     * @param array $markdown_config The markdown config array.
+     * @param array $markdown_config the markdown config array
      */
     protected function initialize($markdown_config)
     {
@@ -709,7 +705,6 @@ class Markdown
 
     /**
      * Main function.
-     *
      * Performs some preprocessing on the input text and pass it through the
      * document gamut.
      *
@@ -817,13 +812,11 @@ class Markdown
 
     /**
      * Hashify HTML Blocks and "clean tags".
-     *
      * We only want to do this for block-level HTML tags, such as headers,
      * lists, and tables. That's because we still want to wrap <p>s around
      * "paragraphs" that are wrapped in non-block-level tags, such as anchors,
      * phrase emphasis, and spans. The list of tags we're looking for is
      * hard-coded.
-     *
      * This works by calling _HashHTMLBlocks_InMarkdown, which then calls
      * _HashHTMLBlocks_InHTML when it encounter block tags. When the
      * markdown="1" attribute is found within a tag, _HashHTMLBlocks_InHTML
@@ -849,10 +842,10 @@ class Markdown
 
     /**
      * Parse markdown text, calling _HashHTMLBlocks_InHTML for block tags.
-     *
      * $indent is the number of space to be ignored when checking for code
      * blocks. This is important because if we don't take the indent into
-     * account, something like this (which looks right) won't work as expected:
+     * account, something like this (which looks right) won't work as
+     * expected:
      *
      * <div>
      *   <div markdown="1">
@@ -860,17 +853,16 @@ class Markdown
      *   </div>         <-- Is this a Markdown code block or a real tag?
      * <div>
      *
-     * If you don't like this, just don't indent the tag on which you apply the
-     * markdown="1" attribute.
+     * If you don't like this, just don't indent the tag on which you apply
+     * the markdown="1" attribute.
      *
      * If $enclosing_tag_re is not empty, stops at the first unmatched closing
      * tag with that name. Nested tags supported.
      *
-     * If $span is true, text inside must treated as span. So any double newline
-     * will be replaced by a single newline so that it does not create
-     * paragraphs.
-     *
-     * Returns an array of that form: (processed text, remaining text)
+     * If $span is true, text inside must treated as span. So any double
+     * newline will be replaced by a single newline so that it does not create
+     * paragraphs. Returns an array of that form: (processed text, remaining
+     * text)
      *
      * @param string $text
      * @param int    $indent
@@ -879,7 +871,8 @@ class Markdown
      *
      * @return array
      */
-    protected function _hashHTMLBlocks_inMarkdown($text, $indent = 0, $enclosing_tag_re = '', $span = false)
+    protected function _hashHTMLBlocks_inMarkdown($text, $indent = 0,
+                                                  $enclosing_tag_re = '', $span = false)
     {
         if ($text === '') {
             return array('', '');
@@ -951,17 +944,13 @@ class Markdown
         $depth = 0;        // Current depth inside the tag tree.
         $parsed = '';    // Parsed text that will be returned.
 
-        //
         // Loop through every tag until we find the closing tag of the parent
         // or loop until reaching the end of text if no parent tag specified.
-        //
         do {
-            //
             // Split the text using the first $tag_match pattern found.
             // Text before  pattern will be first in the array, text after
             // pattern will be at the end, and between will be any catches made
             // by the pattern.
-            //
             $parts = preg_split($block_tag_re, $text, 2,
                 PREG_SPLIT_DELIM_CAPTURE);
 
@@ -983,19 +972,16 @@ class Markdown
 
             $tag = $parts[1]; // Tag to handle.
             $text = $parts[2]; // Remaining text after current tag.
-            $tag_re = preg_quote($tag); // For use in a regular expression.
 
-            //
             // Check for: Fenced code block marker.
-            // Note: need to recheck the whole tag to disambiguate back-tick
+            // Note: need to recheck the whole tag to disambiguate backtick
             // fences from code spans
-            //
             if (preg_match('{^\n?([ ]{0,'.($indent + 3).'})(~{3,}|`{3,})[ ]*(?:\.?[-_:a-zA-Z0-9]+)?[ ]*(?:'.$this->id_class_attr_nocatch_re.')?[ ]*\n?$}', $tag, $capture)) {
                 // Fenced code block marker: find matching end marker.
                 $fence_indent = strlen($capture[1]); // use captured indent in re
                 $fence_re = $capture[2]; // use captured fence in re
                 if (preg_match('{^(?>.*\n)*?[ ]{'.($fence_indent).'}'.$fence_re.'[ ]*(?:\n|$)}', $text,
-                        $matches)) {
+                    $matches)) {
                     // End marker found: pass text unchanged until marker.
                     $parsed .= $tag.$matches[0];
                     $text = substr($text, strlen($matches[0]));
@@ -1003,24 +989,19 @@ class Markdown
                     // No end marker: just skip it.
                     $parsed .= $tag;
                 }
-            }
-            //
-            // Check for: Indented code block.
-            //
-            elseif ($tag[0] == "\n" || $tag[0] == ' ') {
+            } // Check for: Indented code block.
+            elseif ($tag[0] === "\n" || $tag[0] === ' ') {
                 // Indented code block: pass it unchanged, will be handled
                 // later.
                 $parsed .= $tag;
             }
-            //
             // Check for: Code span marker
             // Note: need to check this after backtick fenced code blocks
-            //
-            elseif ($tag[0] == '`') {
+            elseif ($tag[0] === '`') {
                 // Find corresponding end marker.
                 $tag_re = preg_quote($tag);
                 if (preg_match('{^(?>.+?|\n(?!\n))*?(?<!`)'.$tag_re.'(?!`)}',
-                        $text, $matches)) {
+                    $text, $matches)) {
                     // End marker found: pass text unchanged until marker.
                     $parsed .= $tag.$matches[0];
                     $text = substr($text, strlen($matches[0]));
@@ -1029,11 +1010,9 @@ class Markdown
                     $parsed .= $tag;
                 }
             }
-            //
             // Check for: Opening Block level tag or
             //            Opening Context Block tag (like ins and del)
             //               used as a block tag (tag is alone on it's line).
-            //
             elseif (preg_match('{^<(?:'.$this->block_tags_re.')\b}', $tag) ||
                 (preg_match('{^<(?:'.$this->context_block_tags_re.')\b}', $tag) &&
                     preg_match($newline_before_re, $parsed) &&
@@ -1046,38 +1025,30 @@ class Markdown
                 // Make sure it stays outside of any paragraph by adding newlines.
                 $parsed .= "\n\n$block_text\n\n";
             }
-            //
             // Check for: Clean tag (like script, math)
             //            HTML Comments, processing instructions.
-            //
             elseif (preg_match('{^<(?:'.$this->clean_tags_re.')\b}', $tag) ||
-                $tag[1] == '!' || $tag[1] == '?') {
+                $tag[1] === '!' || $tag[1] === '?') {
                 // Need to parse tag and following text using the HTML parser.
                 // (don't check for markdown attribute)
                 list($block_text, $text) =
                     $this->_hashHTMLBlocks_inHTML($tag.$text, 'hashClean', false);
 
                 $parsed .= $block_text;
-            }
-            //
-            // Check for: Tag with same name as enclosing tag.
-            //
+            } // Check for: Tag with same name as enclosing tag.
             elseif ($enclosing_tag_re !== '' &&
                 // Same name as enclosing tag.
                 preg_match('{^</?(?:'.$enclosing_tag_re.')\b}', $tag)) {
-                //
                 // Increase/decrease nested tag count.
-                //
-                if ($tag[1] == '/') {
+                if ($tag[1] === '/') {
                     --$depth;
-                } elseif ($tag[strlen($tag) - 2] != '/') {
+                } elseif ($tag[strlen($tag) - 2] !== '/') {
                     ++$depth;
                 }
+
                 if ($depth < 0) {
-                    //
                     // Going out of parent element. Clean up and break so we
                     // return to the calling function.
-                    //
                     $text = $tag.$text;
                     break;
                 }
@@ -1101,7 +1072,7 @@ class Markdown
      *
      * @param string $text
      * @param string $hash_method
-     * @param string $md_attr
+     * @param bool   $md_attr     Handle `markdown="1"` attribute
      *
      * @return array An array of that form: (processed text , remaining text)
      */
@@ -1155,34 +1126,27 @@ class Markdown
         $depth = 0;    // Current depth inside the tag tree.
         $block_text = '';    // Temporary text holder for current text.
         $parsed = '';    // Parsed text that will be returned.
+        $base_tag_name_re = '';
 
-        //
         // Get the name of the starting tag.
         // (This pattern makes $base_tag_name_re safe without quoting.)
-        //
         if (preg_match('/^<([\w:$]*)\b/', $text, $matches)) {
             $base_tag_name_re = $matches[1];
         }
 
-        //
         // Loop through every tag until we find the corresponding closing tag.
-        //
         do {
-            //
             // Split the text using the first $tag_match pattern found.
             // Text before  pattern will be first in the array, text after
             // pattern will be at the end, and between will be any catches made
             // by the pattern.
-            //
             $parts = preg_split($tag_re, $text, 2, PREG_SPLIT_DELIM_CAPTURE);
 
             if (count($parts) < 3) {
-                //
-                // End of $text reached with unbalanced tag(s).
+                // End of $text reached with unbalenced tag(s).
                 // In that case, we return original text unchanged and pass the
                 // first character as filtered to prevent an infinite loop in the
                 // parent function.
-                //
                 return array($original_text[0], substr($original_text, 1));
             }
 
@@ -1190,30 +1154,24 @@ class Markdown
             $tag = $parts[1]; // Tag to handle.
             $text = $parts[2]; // Remaining text after current tag.
 
-            //
             // Check for: Auto-close tag (like <hr/>)
-            //    Comments and Processing Instructions.
-            //
+            //           Comments and Processing Instructions.
             if (preg_match('{^</?(?:'.$this->auto_close_tags_re.')\b}', $tag) ||
-                $tag[1] == '!' || $tag[1] == '?') {
+                $tag[1] === '!' || $tag[1] === '?') {
                 // Just add the tag to the block as if it was text.
                 $block_text .= $tag;
             } else {
-                //
                 // Increase/decrease nested tag count. Only do so if
                 // the tag's name match base tag's.
-                //
                 if (preg_match('{^</?'.$base_tag_name_re.'\b}', $tag)) {
-                    if ($tag[1] == '/') {
+                    if ($tag[1] === '/') {
                         --$depth;
-                    } elseif ($tag[strlen($tag) - 2] != '/') {
+                    } elseif ($tag[strlen($tag) - 2] !== '/') {
                         ++$depth;
                     }
                 }
 
-                //
                 // Check for `markdown="1"` attribute and handle it.
-                //
                 if ($md_attr &&
                     preg_match($markdown_attr_re, $tag, $attr_m) &&
                     preg_match('/^1|block|span$/', $attr_m[2].$attr_m[3])) {
@@ -1222,8 +1180,8 @@ class Markdown
 
                     // Check if text inside this tag must be parsed in span mode.
                     $this->mode = $attr_m[2].$attr_m[3];
-                    $span_mode = $this->mode == 'span' || $this->mode != 'block' &&
-                        preg_match('{^<(?:'.$this->contain_span_tags_re.')\b}', $tag);
+                    $span_mode = $this->mode === 'span' || ($this->mode !== 'block' &&
+                            preg_match('{^<(?:'.$this->contain_span_tags_re.')\b}', $tag));
 
                     // Calculate indent before tag.
                     if (preg_match('/(?:^|\n)( *?)(?! ).*?$/', $block_text, $matches)) {
@@ -1257,7 +1215,7 @@ class Markdown
                     if (!$span_mode) {
                         $parsed .= "\n\n$block_text\n\n";
                     } else {
-                        $parsed .= "$block_text";
+                        $parsed .= (string) $block_text;
                     }
 
                     // Start over with a new block.
@@ -1268,9 +1226,7 @@ class Markdown
             }
         } while ($depth > 0);
 
-        //
         // Hash last block text that wasn't processed inside the loop.
-        //
         $parsed .= $this->$hash_method($block_text);
 
         return array($parsed, $text);
@@ -1280,12 +1236,10 @@ class Markdown
      * Called whenever a tag must be hashed when a function insert an atomic
      * element in the text stream. Passing $text to through this function gives
      * a unique text-token which will be reverted back when calling unhash.
-     *
      * The $boundary argument specify what character should be used to surround
      * the token. By convention, "B" is used for block elements that needs not
      * to be wrapped into paragraph tags at the end, ":" is used for elements
      * that are word separators and "X" is used in the general case.
-     *
      * Swap back any tag hash found in $text so we do not have to `unhash`
      * multiple times at the end.
      *
@@ -1351,7 +1305,6 @@ class Markdown
 
     /**
      * Run block gamut transformations, without hashing HTML blocks.
-     *
      * This is useful when HTML blocks are known to be already hashed, like in
      * the first whole-document pass.
      *
@@ -1575,7 +1528,7 @@ class Markdown
     }
 
     /**
-     * Inline anchors callback function.
+     * Callback for inline anchors.
      *
      * @param array $matches
      *
@@ -1583,17 +1536,15 @@ class Markdown
      */
     protected function _doAnchors_inline_callback($matches)
     {
-        $whole_match = $matches[1];
         $link_text = $this->runSpanGamut($matches[2]);
-        $url = $matches[3] == '' ? $matches[4] : $matches[3];
+        $url = $matches[3] === '' ? $matches[4] : $matches[3];
         $title = &$matches[7];
         $attr = $this->doExtraAttributes('a', $dummy = &$matches[8]);
 
         // if the URL was of the form <s p a c e s> it got caught by the HTML
-        // tag parser and hashed. Need to reverse the process before using the
-        // URL.
+        // tag parser and hashed. Need to reverse the process before using the URL.
         $unhashed = $this->unhash($url);
-        if ($unhashed != $url) {
+        if ($unhashed !== $url) {
             $url = preg_replace('/^<(.*)>$/', '\1', $unhashed);
         }
 
@@ -1672,7 +1623,7 @@ class Markdown
     }
 
     /**
-     * Images callback function.
+     * Callback for referenced images.
      *
      * @param array $matches
      *
@@ -1684,7 +1635,7 @@ class Markdown
         $alt_text = $matches[2];
         $link_id = strtolower($matches[3]);
 
-        if ($link_id == '') {
+        if ($link_id === '') {
             $link_id = strtolower($alt_text); // for shortcut links like ![this][].
         }
 
@@ -1719,21 +1670,18 @@ class Markdown
      */
     protected function _doImages_inline_callback($matches)
     {
-        $whole_match = $matches[1];
         $alt_text = $matches[2];
-        $url = $matches[3] == '' ? $matches[4] : $matches[3];
+        $url = $matches[3] === '' ? $matches[4] : $matches[3];
         $title = &$matches[7];
         $attr = $this->doExtraAttributes('img', $dummy = &$matches[8]);
 
         $alt_text = $this->encodeAttribute($alt_text);
         $url = $this->encodeURLAttribute($url);
         $result = "<img src=\"$url\" alt=\"$alt_text\"";
-
         if (isset($title)) {
             $title = $this->encodeAttribute($title);
             $result .= " title=\"$title\""; // $title already quoted
         }
-
         $result .= $attr;
         $result .= $this->empty_element_suffix;
 
@@ -1790,7 +1738,7 @@ class Markdown
     }
 
     /**
-     * Process headers callback function.
+     * Callback for setext headers.
      *
      * @param array $matches
      *
@@ -1798,12 +1746,11 @@ class Markdown
      */
     protected function _doHeaders_callback_setext($matches)
     {
-        if ($matches[3] == '-' && preg_match('{^- }', $matches[1])) {
+        if ($matches[3] === '-' && preg_match('{^- }', $matches[1])) {
             return $matches[0];
         }
 
-        $level = $matches[3][0]
-        == '=' ? 1 : 2;
+        $level = $matches[3][0] === '=' ? 1 : 2;
 
         $defaultId = is_callable($this->header_id_func) ? call_user_func($this->header_id_func, $matches[1]) : null;
 
@@ -1833,7 +1780,6 @@ class Markdown
 
     /**
      * Generate ID from Header Value.
-     *
      * If a header_id_func property is set, we can use it to automatically
      * generate an id attribute.
      *
@@ -1961,7 +1907,7 @@ class Markdown
     }
 
     /**
-     * Table callback function.
+     * Callback for processing tables.
      *
      * @param array $matches
      *
@@ -1978,7 +1924,7 @@ class Markdown
         $underline = preg_replace('/[|] *$/m', '', $underline);
         $content = preg_replace('/[|] *$/m', '', $content);
 
-        // Reading alignement from header underline.
+        // Reading alignment from header underline.
         $separators = preg_split('/ *[|] */', $underline);
         foreach ($separators as $n => $s) {
             if (preg_match('/^ *-+: *$/', $s)) {
@@ -2214,8 +2160,6 @@ class Markdown
      */
     protected function doFencedCodeBlocks($text)
     {
-        $less_than_tab = $this->tab_width;
-
         $text = preg_replace_callback('{
                 (?:\n|\A)
                 # 1: Opening marker
@@ -2249,7 +2193,7 @@ class Markdown
     }
 
     /**
-     * Fenced code block callback function.
+     * Callback to process fenced code blocks.
      *
      * @param array $matches
      *
@@ -2271,8 +2215,8 @@ class Markdown
             array($this, '_doFencedCodeBlocks_newlines'), $codeblock);
 
         $classes = array();
-        if ($classname != '') {
-            if ($classname[0] == '.') {
+        if ($classname !== '') {
+            if ($classname[0] === '.') {
                 $classname = substr($classname, 1);
             }
             $classes[] = $this->code_class_prefix.$classname;
@@ -2397,28 +2341,26 @@ class Markdown
     }
 
     /**
-     * Process the contents of a single ordered or unordered list, splitting it
+     * Process the contents of a single ordered or unordered list, splitting
+     * it
      * into individual list items.
-     *
      * The $this->list_level global keeps track of when we're inside a list.
      * Each time we enter a list, we increment it; when we leave a list, we
      * decrement. If it's zero, we're not in a list anymore.
-     *
      * We do this because when we're not inside a list, we want to treat
      * something like this:
-     *
      *   I recommend upgrading to version
      *   8. Oops, now this line is treated
      *   as a sub-list.
-     *
-     * As a single paragraph, despite the fact that the second line starts with
+     * As a single paragraph, despite the fact that the second line starts
+     * with
      * a digit-period-space sequence.
-     *
-     * Whereas when we're inside a list (or sub-list), that line will be treated
-     * as the start of a sub-list. What a kludge, huh? This is an aspect of
-     * Markdown's syntax that's hard to parse perfectly without resorting to
-     * mind-reading. Perhaps the solution is to change the syntax rules such
-     * that sub-lists must start with a starting cardinal number; e.g. "1." or
+     * Whereas when we're inside a list (or sub-list), that line will be
+     * treated as the start of a sub-list. What a kludge, huh? This is an
+     * aspect of Markdown's syntax that's hard to parse perfectly without
+     * resorting to mind-reading. Perhaps the solution is to change the syntax
+     * rules such that sub-lists must start with a starting cardinal number;
+     * e.g. "1." or
      * "a.".
      *
      * @param string $list_str
@@ -2531,7 +2473,6 @@ class Markdown
 
     /**
      * Create a code span markup for $code.
-     *
      * Called from handleSpanToken.
      *
      * @param string $code
@@ -2550,7 +2491,8 @@ class Markdown
     }
 
     /**
-     * Prepare regular expressions for searching emphasis tokens in any context.
+     * Prepare regular expressions for searching emphasis tokens in any
+     * context.
      */
     protected function prepareItalicsAndBold()
     {
@@ -2574,9 +2516,10 @@ class Markdown
     }
 
     /**
-     * doItalicsAndBold
+     * doItalicsAndBold.
      *
      * @param string $text
+     *
      * @return string
      */
     protected function doItalicsAndBold($text)
@@ -2878,12 +2821,12 @@ class Markdown
     protected function _doFootnotes()
     {
         $attr = '';
-        if ($this->fn_backlink_class != '') {
+        if ($this->fn_backlink_class !== '') {
             $class = $this->fn_backlink_class;
             $class = $this->encodeAttribute($class);
             $attr .= " class=\"$class\"";
         }
-        if ($this->fn_backlink_title != '') {
+        if ($this->fn_backlink_title !== '') {
             $title = $this->fn_backlink_title;
             $title = $this->encodeAttribute($title);
             $attr .= " title=\"$title\"";
@@ -2958,12 +2901,12 @@ class Markdown
             }
 
             $attr = '';
-            if ($this->fn_link_class != '') {
+            if ($this->fn_link_class !== '') {
                 $class = $this->fn_link_class;
                 $class = $this->encodeAttribute($class);
                 $attr .= " class=\"$class\"";
             }
-            if ($this->fn_link_title != '') {
+            if ($this->fn_link_title !== '') {
                 $title = $this->fn_link_title;
                 $title = $this->encodeAttribute($title);
                 $attr .= " title=\"$title\"";
@@ -3042,6 +2985,13 @@ class Markdown
         return $text;
     }
 
+    /**
+     * Callback for processing abbreviations.
+     *
+     * @param array $matches
+     *
+     * @return string
+     */
     protected function _doAbbreviations_callback($matches)
     {
         $abbr = $matches[0];
@@ -3049,14 +2999,13 @@ class Markdown
             $desc = $this->abbr_desciptions[$abbr];
             if (empty($desc)) {
                 return $this->hashPart("<abbr>$abbr</abbr>");
-            } else {
-                $desc = $this->encodeAttribute($desc);
-
-                return $this->hashPart("<abbr title=\"$desc\">$abbr</abbr>");
             }
-        } else {
-            return $matches[0];
+            $desc = $this->encodeAttribute($desc);
+
+            return $this->hashPart("<abbr title=\"$desc\">$abbr</abbr>");
         }
+
+        return $matches[0];
     }
 
     /**
@@ -3076,13 +3025,11 @@ class Markdown
     }
 
     /**
-     * Encode text for a double-quoted HTML attribute containing a URL, applying
-     * the URL filter if set.
-     *
-     * Also generates the textual representation for the URL (removing mailto:
-     * or tel:) storing it in $text.
-     *
-     * This function is *not* suitable for attributes enclosed in single quotes.
+     * Encode text for a double-quoted HTML attribute containing a URL,
+     * applying the URL filter if set. Also generates the textual
+     * representation for the URL (removing mailto: or tel:) storing it in
+     * $text. This function is *not* suitable for attributes enclosed in
+     * single quotes.
      *
      * @param string $url
      * @param string &$text
@@ -3203,18 +3150,14 @@ class Markdown
 
     /**
      * Input: some text to obfuscate, e.g. "mailto:foo@example.com".
-     *
      * Output: the same text but with most characters encoded as either a
      * decimal or hex entity, in the hopes of foiling most address harvesting
      * spam bots. E.g.:
-     *
      *   &#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x66;o&#111;
      *   &#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#111;
      *   &#x6d;
-     *
      * Note: the additional output $tail is assigned the same value as the
      * ouput, minus the number of characters specified by $head_length.
-     *
      * Based by a filter by Matthew Wickline, posted to BBEdit-Talk. With some
      * optimizations by Milian Wolff. Forced encoding of HTML attribute special
      * characters by Allan Odgaard.
@@ -3329,21 +3272,21 @@ class Markdown
     protected function handleSpanToken($token, &$str)
     {
         switch ($token[0]) {
-        case '\\':
-            return $this->hashPart('&#'.ord($token[1]).';');
-        case '`':
-            // Search for end marker in remaining text.
-            if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm',
+            case '\\':
+                return $this->hashPart('&#'.ord($token[1]).';');
+            case '`':
+                // Search for end marker in remaining text.
+                if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm',
                     $str, $matches)) {
-                $str = $matches[2];
-                $codespan = $this->makeCodeSpan($matches[1]);
+                    $str = $matches[2];
+                    $codespan = $this->makeCodeSpan($matches[1]);
 
-                return $this->hashPart($codespan);
-            }
+                    return $this->hashPart($codespan);
+                }
 
-            return $token; // return as text since no ending marker found.
-        default:
-            return $this->hashPart($token);
+                return $token; // return as text since no ending marker found.
+            default:
+                return $this->hashPart($token);
         }
     }
 
@@ -3361,10 +3304,9 @@ class Markdown
 
     /**
      * Replace tabs with the appropriate amount of space.
-     *
-     * For each line we separate the line in blocks delimited by tab characters.
-     * Then we reconstruct every line by adding the appropriate number of space
-     * between each blocks.
+     * For each line we separate the line in blocks delimited by tab
+     * characters. Then we reconstruct every line by adding the appropriate
+     * number of space between each blocks.
      *
      * @param string $text
      *
@@ -3408,7 +3350,6 @@ class Markdown
     /**
      * Check for the availability of the function in the `utf8_strlen` property
      * (initially `mb_strlen`).
-     *
      * If the function is not available, create a function that will loosely
      * count the number of UTF-8 characters with a regular expression.
      */
@@ -3451,9 +3392,7 @@ class Markdown
     /**
      * Parse attributes caught by the $this->id_class_attr_catch_re expression
      * and return the HTML-formatted list of attributes.
-     *
      * Currently supported attributes are .class and #id.
-     *
      * In addition, this method also supports supplying a default Id value,
      * which will be used to populate the id attribute in case it was not
      * overridden.
@@ -3475,13 +3414,13 @@ class Markdown
         preg_match_all('/[#.a-z][-_:a-zA-Z0-9=]+/', $attr, $matches);
         $elements = $matches[0];
 
-        // handle classes and ids (only first id taken into account)
+        // Handle classes and IDs (only first ID taken into account)
         $attributes = array();
         $id = false;
         foreach ($elements as $element) {
-            if ($element[0] == '.') {
+            if ($element[0] === '.') {
                 $classes[] = substr($element, 1);
-            } elseif ($element[0] == '#') {
+            } elseif ($element[0] === '#') {
                 if ($id === false) {
                     $id = substr($element, 1);
                 }
@@ -3490,11 +3429,12 @@ class Markdown
                 $attributes[] = $parts[0].'="'.$parts[1].'"';
             }
         }
-        if (!$id) {
+
+        if ($id === false || $id === '') {
             $id = $defaultIdValue;
         }
 
-        // compose attributes as string
+        // Compose attributes as string
         $attr_str = '';
         if (!empty($id)) {
             $attr_str .= ' id="'.$this->encodeAttribute($id).'"';

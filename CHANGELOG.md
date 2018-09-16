@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.6
+
+**Release Date:** 2018-05-29
+
+- Cleanup code and delete unused variables.
+
 ## 1.4.5
 
 **Release Date:** 2018-04-01
