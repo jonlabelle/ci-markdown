@@ -279,11 +279,26 @@ class Markdown
     public $fn_link_title = '';
 
     /**
-     * Optional title attribute for footnote backlinks.
+     * Optional title attribute for footnote backlinks for
+     * added accessibility (to ensure backlink uniqueness).
+     *
+     * Use '^^' and '%%' to refer to the footnote number and reference number
+     * respectively. {@see parseFootnotePlaceholders()}.
      *
      * @var string
      */
     public $fn_backlink_title = '';
+
+    /**
+     * Optional aria-label attribute for footnote backlinks for
+     * added accessibility (to ensure backlink uniqueness).
+     *
+     * Use '^^' and '%%' to refer to the footnote number and reference number
+     * respectively. {@see parseFootnotePlaceholders()}.
+     *
+     * @var string
+     */
+    public $fn_backlink_label = '';
 
     /**
      * Optional class attribute for footnote links.
@@ -301,8 +316,11 @@ class Markdown
 
     /**
      * Content to be displayed within footnote backlinks. The default is '↩';
-     * the U+FE0E on the end is a Unicode variant selector used to prevent
-     * iOS from displaying the arrow character as an emoji.
+     * the U+FE0E on the end is a Unicode variant selector used to prevent iOS
+     * from displaying the arrow character as an emoji.
+     *
+     * Optionally use '^^' and '%%' to refer to the footnote number and
+     * reference number respectively. {@see parseFootnotePlaceholders()}.
      *
      * @var string
      */
@@ -498,8 +516,10 @@ class Markdown
 
     /**
      * After parsing, the HTML for the list of footnotes appears here.
+     *
      * This is available only if $omit_footnotes == true.
-     * Note: when placing the content of `footnotes_assembled` on the page,
+     *
+     * NOTE: when placing the content of `footnotes_assembled` on the page,
      * consider adding the attribute `role="doc-endnotes"` to the `div` or
      * `section` that will enclose the list of footnotes so they are
      * reachable to accessibility tools the same way they would be with the
@@ -514,14 +534,41 @@ class Markdown
      */
     public function __construct()
     {
-        /** @var CI_Controller $CI */
+        //
+        // CI Init
+
         $CI = &get_instance();
         $CI->load->config('markdown', true, true);
         $markdown_config = $CI->config->item('markdown');
         $this->initialize($markdown_config);
 
-        $this->_initDetab();
+        //
+        // Markdown Extra Init
 
+        // Insert extra document, block, and span transformations.
+        // Parent constructor will do the sorting.
+        $this->document_gamut += array(
+            'doFencedCodeBlocks' => 5,
+            'stripFootnotes' => 15,
+            'stripAbbreviations' => 25,
+            'appendFootnotes' => 50,
+        );
+        $this->block_gamut += array(
+            'doFencedCodeBlocks' => 5,
+            'doTables' => 15,
+            'doDefLists' => 45,
+        );
+        $this->span_gamut += array(
+            'doFootnotes' => 5,
+            'doAbbreviations' => 70,
+        );
+
+        $this->enhanced_ordered_list = true;
+
+        //
+        // Markdown Init
+
+        $this->_initDetab();
         $this->prepareItalicsAndBold();
 
         $this->nested_brackets_re =
@@ -534,12 +581,10 @@ class Markdown
 
         $this->escape_chars_re = '['.preg_quote($this->escape_chars).']';
 
-        // Sort document, block, and span gamut in ascendant priority order.
+        // Sort document, block, and span gamut in ascendent priority order.
         asort($this->document_gamut);
         asort($this->block_gamut);
         asort($this->span_gamut);
-
-        $this->enhanced_ordered_list = true;
 
         log_message('info', 'Markdown Class Initialized');
     }
@@ -668,6 +713,7 @@ class Markdown
         $this->abbr_desciptions = array();
         $this->abbr_word_re = '';
         $this->footnote_counter = 1;
+        $this->footnotes_assembled = null;
 
         foreach ($this->predef_abbr as $abbr_word => $abbr_desc) {
             if ($this->abbr_word_re) {
@@ -2214,8 +2260,8 @@ class Markdown
             array($this, '_doFencedCodeBlocks_newlines'), $codeblock);
 
         $classes = array();
-        if ($classname !== '') {
-            if ($classname[0] === '.') {
+        if ('' !== $classname) {
+            if ('.' === $classname[0]) {
                 $classname = substr($classname, 1);
             }
             $classes[] = $this->code_class_prefix.$classname;
@@ -2445,7 +2491,7 @@ class Markdown
     }
 
     /**
-     * Process code blocks callback function.
+     * Code block parsing callback.
      *
      * @param array $matches
      *
@@ -2456,7 +2502,7 @@ class Markdown
         $codeblock = $matches[1];
 
         $codeblock = $this->outdent($codeblock);
-        if ($this->code_block_content_func) {
+        if (is_callable($this->code_block_content_func)) {
             $codeblock = call_user_func($this->code_block_content_func, $codeblock, '');
         } else {
             $codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
@@ -2819,20 +2865,13 @@ class Markdown
      */
     protected function _doFootnotes()
     {
-        $attr = '';
-        if ($this->fn_backlink_class !== '') {
+        $attr = array();
+        if ('' !== $this->fn_backlink_class) {
             $class = $this->fn_backlink_class;
             $class = $this->encodeAttribute($class);
-            $attr .= " class=\"$class\"";
+            $attr['class'] = " class=\"$class\"";
         }
-        if ($this->fn_backlink_title !== '') {
-            $title = $this->fn_backlink_title;
-            $title = $this->encodeAttribute($title);
-            $attr .= " title=\"$title\"";
-            $attr .= " aria-label=\"$title\"";
-        }
-        $attr .= ' role="doc-backlink"';
-        $backlink_text = $this->fn_backlink_html;
+        $attr['role'] = ' role="doc-backlink"';
         $num = 0;
 
         $text = "<ol>\n\n";
@@ -2849,19 +2888,43 @@ class Markdown
             $footnote = preg_replace_callback('{F\x1Afn:(.*?)\x1A:}',
                 array($this, '_appendFootnotes_callback'), $footnote);
 
-            $attr = str_replace('%%', ++$num, $attr);
+            ++$num;
             $note_id = $this->encodeAttribute($note_id);
 
             // Prepare backlink, multiple backlinks if multiple references
-            $backlink = "<a href=\"#fnref:$note_id\"$attr>$backlink_text</a>";
-            for ($ref_num = 2; $ref_num <= $ref_count; ++$ref_num) {
-                $backlink .= " <a href=\"#fnref$ref_num:$note_id\"$attr>$backlink_text</a>";
+            // Do not create empty backlinks if the html is blank
+            $backlink = '';
+            if (!empty($this->fn_backlink_html)) {
+                for ($ref_num = 1; $ref_num <= $ref_count; ++$ref_num) {
+                    if (!empty($this->fn_backlink_title)) {
+                        $attr['title'] = ' title="'.$this->encodeAttribute($this->fn_backlink_title).'"';
+                    }
+                    if (!empty($this->fn_backlink_label)) {
+                        $attr['label'] = ' aria-label="'.$this->encodeAttribute($this->fn_backlink_label).'"';
+                    }
+                    $parsed_attr = $this->parseFootnotePlaceholders(
+                        implode('', $attr),
+                        $num,
+                        $ref_num
+                    );
+                    $backlink_text = $this->parseFootnotePlaceholders(
+                        $this->fn_backlink_html,
+                        $num,
+                        $ref_num
+                    );
+                    $ref_count_mark = $ref_num > 1 ? $ref_num : '';
+                    $backlink .= " <a href=\"#fnref$ref_count_mark:$note_id\"$parsed_attr>$backlink_text</a>";
+                }
+                $backlink = trim($backlink);
             }
+
             // Add backlink to last paragraph; create new paragraph if needed.
-            if (preg_match('{</p>$}', $footnote)) {
-                $footnote = substr($footnote, 0, -4)."&#160;$backlink</p>";
-            } else {
-                $footnote .= "\n\n<p>$backlink</p>";
+            if (!empty($backlink)) {
+                if (preg_match('{</p>$}', $footnote)) {
+                    $footnote = substr($footnote, 0, -4)."&#160;$backlink</p>";
+                } else {
+                    $footnote .= "\n\n<p>$backlink</p>";
+                }
             }
 
             $text .= "<li id=\"fn:$note_id\" role=\"doc-endnote\">\n";
@@ -2896,16 +2959,16 @@ class Markdown
                 $num = $this->footnote_counter++;
                 $ref_count_mark = '';
             } else {
-                $ref_count_mark = $this->footnotes_ref_count[$node_id] += 1;
+                $ref_count_mark = ++$this->footnotes_ref_count[$node_id];
             }
 
             $attr = '';
-            if ($this->fn_link_class !== '') {
+            if ('' !== $this->fn_link_class) {
                 $class = $this->fn_link_class;
                 $class = $this->encodeAttribute($class);
                 $attr .= " class=\"$class\"";
             }
-            if ($this->fn_link_title !== '') {
+            if ('' !== $this->fn_link_title) {
                 $title = $this->fn_link_title;
                 $title = $this->encodeAttribute($title);
                 $attr .= " title=\"$title\"";
@@ -2922,6 +2985,27 @@ class Markdown
         }
 
         return '[^'.$matches[1].']';
+    }
+
+    /**
+     * Build footnote label by evaluating any placeholders.
+     *
+     * - ^^  footnote number
+     * - %%  footnote reference number (Nth reference to footnote number).
+     *
+     * @param string $label
+     * @param int    $footnote_number
+     * @param int    $reference_number
+     *
+     * @return string
+     */
+    protected function parseFootnotePlaceholders($label, $footnote_number, $reference_number)
+    {
+        return str_replace(
+            array('^^', '%%'),
+            array($footnote_number, $reference_number),
+            $label
+        );
     }
 
     /**

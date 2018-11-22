@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.7
+
+**Release Date:** 2018-11-21
+
+- Added `fn_backlink_label` configuration variable to put some text in the
+  `aria-label` attribute.
+- Occurrences of "`^^`" in `fn_backlink_html`, `fn_backlink_class`,
+  `fn_backlink_title`, and `fn_backlink_label` will be replaced by the
+  corresponding footnote number in the HTML output. Occurrences of "`%%`" will
+  be replaced by a number for the reference (footnotes can have multiple
+  references).
+
 ## 1.4.6
 
 **Release Date:** 2018-05-29
