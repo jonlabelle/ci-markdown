@@ -18,7 +18,7 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.4.6
+ * @version     1.4.7
  * @version     PHP Markdown Lib 1.8.0
  */
 defined('BASEPATH') || exit('No direct script access allowed');
