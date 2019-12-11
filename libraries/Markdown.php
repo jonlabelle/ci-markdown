@@ -9,7 +9,7 @@
  *
  * @category    Libraries
  *
- * @copyright   PHP Markdown Copyright (c) 2004-2018 Michel Fortin
+ * @copyright   PHP Markdown Copyright (c) 2004-2019 Michel Fortin
  *              (https://michelf.ca/projects/php-markdown/)
  * @copyright   Markdown Copyright (c) 2004-2006 John Gruber
  *              (https://daringfireball.net/projects/markdown/)
@@ -19,7 +19,7 @@
  * @link        https://github.com/jonlabelle/ci-markdown
  *
  * @version     1.4.7
- * @version     PHP Markdown Lib 1.8.0
+ * @version     PHP Markdown Lib 1.9.0
  */
 defined('BASEPATH') || exit('No direct script access allowed');
 
