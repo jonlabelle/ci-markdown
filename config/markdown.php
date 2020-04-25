@@ -20,7 +20,7 @@
 | to 8 will make parser treat a tab character as two levels
 | of indentation.
 |
-| @int (default = 4)
+| @int [ 4 ]
 */
 
 $config['tab_width'] = 4;
@@ -37,7 +37,7 @@ $config['tab_width'] = 4;
 | javascript being injected in a document. See why in
 | Markdown and XSS https://michelf.ca/blog/2010/markdown-and-xss/
 |
-| @bool (default = false)
+| @bool [ false ]
 */
 
 $config['no_markup'] = false;
@@ -53,7 +53,7 @@ $config['no_markup'] = false;
 | HTML output will be &amp;tl; and once shown in shown
 | the browser it will match perfectly what was written.
 |
-| @bool (default = false)
+| @bool [ false ]
 */
 
 $config['no_entities'] = false;
@@ -66,7 +66,7 @@ $config['no_entities'] = false;
 | Change to `true` to enable line breaks on "\n" without
 | two trailing spaces.
 |
-| @bool (default = false)
+| @bool [ false ]
 */
 
 $config['hard_wrap'] = false;
@@ -87,7 +87,7 @@ $config['hard_wrap'] = false;
 |
 |     This is [my website][ref].
 |
-| @array (default = array())
+| @array [ array() ]
 */
 
 $config['predef_urls'] = array();
@@ -101,7 +101,7 @@ $config['predef_urls'] = array();
 | passed in predef_urls. As for predef_urls, the key is
 | the reference name.
 |
-| @array (default = array())
+| @array [ array() ]
 */
 
 $config['predef_titles'] = array();
@@ -117,7 +117,7 @@ $config['predef_titles'] = array();
 |
 | See: https://michelf.ca/projects/php-markdown/extra/#abbr
 |
-| @array (default = array())
+| @array [ array() ]
 */
 
 $config['predef_abbr'] = array();
@@ -132,7 +132,7 @@ $config['predef_abbr'] = array();
 | displayed inside one HTML document to avoid footnote
 | ids to clash each other.
 |
-| @string (default = '')
+| @string [ '' ]
 */
 
 $config['fn_id_prefix'] = '';
@@ -144,7 +144,7 @@ $config['fn_id_prefix'] = '';
 |
 | Optional title attribute for footnote links.
 |
-| @string (default = '')
+| @string [ '' ]
 */
 
 $config['fn_link_title'] = '';
@@ -156,7 +156,7 @@ $config['fn_link_title'] = '';
 |
 | Optional title attribute for footnote back-links.
 |
-| @string (default = '')
+| @string [ '' ]
 */
 
 $config['fn_backlink_title'] = '';
@@ -217,7 +217,7 @@ $config['fn_backlink_html'] = '&#8617;&#xFE0E;';
 | variable is "go-%%" and the cell is right-aligned, the
 | result will be: class="go-right".
 |
-| @string (default = '')
+| @string [ '' ]
 */
 
 $config['table_align_class_tmpl'] = '';
@@ -242,7 +242,7 @@ $config['table_align_class_tmpl'] = '';
 |     <br>
 |     ~~~~
 |
-| @string (default = '')
+| @string [ '' ]
 */
 
 $config['code_class_prefix'] = '';
@@ -256,7 +256,7 @@ $config['code_class_prefix'] = '';
 | blocks will go on the <code> tag; setting this to
 | true will put attributes on the <pre> tag instead.
 |
-| @bool (default = false)
+| @bool [ false ]
 */
 
 $config['code_attr_on_pre'] = false;
@@ -282,7 +282,7 @@ $config['code_attr_on_pre'] = false;
 |         <li>List item three</li>
 |     </ol>
 |
-| @bool (default = true)
+| @bool [ true ]
 */
 
 $config['enhanced_ordered_list'] = true;
@@ -295,7 +295,7 @@ $config['enhanced_ordered_list'] = true;
 | This is the string used to close tags for HTML elements
 | with no content such as <br> and <hr>.
 |
-| @string (default = '>')
+| @string [ '>' ]
 */
 
 $config['empty_element_suffix'] = '>';
@@ -309,7 +309,7 @@ $config['empty_element_suffix'] = '>';
 | the initial hash from being interpreted as headers. This way
 | those precious hash tags can be preserved.
 |
-| @bool (default = false)
+| @bool [ false ]
 */
 
 $config['hashtag_protection'] = false;
@@ -323,7 +323,7 @@ $config['hashtag_protection'] = false;
 | of the document. If true, footnote html can be retrieved from
 | $this->footnotes_assembled.
 |
-| @bool (default = false)
+| @bool [ false ]
 */
 
 $config['omit_footnotes'] = false;
