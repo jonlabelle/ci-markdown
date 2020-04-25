@@ -390,7 +390,7 @@ class Markdown
      *
      * @var array
      */
-    protected $abbr_desciptions = array();
+    protected $abbr_descriptions = array();
 
     /**
      * Extra variables used during extra transformations.
@@ -710,7 +710,7 @@ class Markdown
         $this->footnotes_ordered = array();
         $this->footnotes_ref_count = array();
         $this->footnotes_numbers = array();
-        $this->abbr_desciptions = array();
+        $this->abbr_descriptions = array();
         $this->abbr_word_re = '';
         $this->footnote_counter = 1;
         $this->footnotes_assembled = null;
@@ -721,7 +721,7 @@ class Markdown
             }
 
             $this->abbr_word_re .= preg_quote($abbr_word);
-            $this->abbr_desciptions[$abbr_word] = trim($abbr_desc);
+            $this->abbr_descriptions[$abbr_word] = trim($abbr_desc);
         }
     }
 
@@ -736,7 +736,7 @@ class Markdown
         $this->footnotes_ordered = array();
         $this->footnotes_ref_count = array();
         $this->footnotes_numbers = array();
-        $this->abbr_desciptions = array();
+        $this->abbr_descriptions = array();
         $this->abbr_word_re = '';
 
         if (!$this->omit_footnotes) {
@@ -3040,7 +3040,7 @@ class Markdown
         }
 
         $this->abbr_word_re .= preg_quote($abbr_word);
-        $this->abbr_desciptions[$abbr_word] = trim($abbr_desc);
+        $this->abbr_descriptions[$abbr_word] = trim($abbr_desc);
 
         return ''; // String that will replace the block
     }
@@ -3078,8 +3078,8 @@ class Markdown
     protected function _doAbbreviations_callback($matches)
     {
         $abbr = $matches[0];
-        if (isset($this->abbr_desciptions[$abbr])) {
-            $desc = $this->abbr_desciptions[$abbr];
+        if (isset($this->abbr_descriptions[$abbr])) {
+            $desc = $this->abbr_descriptions[$abbr];
             if (empty($desc)) {
                 return $this->hashPart("<abbr>$abbr</abbr>");
             }
