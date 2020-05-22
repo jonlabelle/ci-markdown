@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.0
+
+**Release Date:** 2020-05-22
+
+- Added the ability to programmatically configure the Markdown instance,
+  overriding any settings defined in the overriding any matched settings
+  defined in the [config file](config/markdown.php).
+
 ## 1.4.7
 
 **Release Date:** 2018-11-21

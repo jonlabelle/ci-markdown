@@ -18,7 +18,7 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.4.7
+ * @version     1.5.0
  * @version     PHP Markdown Lib 1.9.0
  */
 defined('BASEPATH') || exit('No direct script access allowed');
@@ -531,16 +531,21 @@ class Markdown
 
     /**
      * Markdown constructor.
+     *
+     * @param array $params Override settings configured in config/markdown.php.
      */
-    public function __construct()
+    public function __construct(array $params = array())
     {
         //
         // CI Init
-
         $CI = &get_instance();
         $CI->load->config('markdown', true, true);
-        $markdown_config = $CI->config->item('markdown');
-        $this->initialize($markdown_config);
+        $config_file = $CI->config->item('markdown');
+        if (is_array($params) && !empty($params)) {
+            $this->initialize(array_replace_recursive($config_file, $params));
+        } else {
+            $this->initialize($config_file);
+        }
 
         //
         // Markdown Extra Init
@@ -581,7 +586,7 @@ class Markdown
 
         $this->escape_chars_re = '['.preg_quote($this->escape_chars).']';
 
-        // Sort document, block, and span gamut in ascendent priority order.
+        // Sort document, block, and span gamut in ascendant priority order.
         asort($this->document_gamut);
         asort($this->block_gamut);
         asort($this->span_gamut);

@@ -19,31 +19,36 @@ Download and extract the [zip][5] release to your CoddeIgniter
 
 - `application/libraries/Markdown.php`
 
-## Using the Markdown Class
+## Usage
 
 ### Configuration
 
-Customized [PHP Markdown settings](https://michelf.ca/projects/php-markdown/configuration/)
-can be specified in the [config/markdown.php](https://github.com/jonlabelle/ci-markdown/blob/master/config/markdown.php) config file.
+Custom [PHP Markdown settings](https://michelf.ca/projects/php-markdown/configuration/)
+are defined in the [config/markdown.php](config/markdown.php) config file.
 
-### Initializing the Class
+### Initializing the Markdown Class
 
-Like most other classes in CodeIgniter, the Markdown class is initialized in
-your controller using the `$this->load->library()` method:
+Like most other classes in CodeIgniter, initialize it from your controller
+using the `$this->load->library()` method:
 
 ```php
 $this->load->library('markdown');
 ```
 
-Once loaded, the Markdown library object will be available using:
+To programmatically configure the Markdown instance, overriding any matched
+settings defined in the [config file](config/markdown.php):
 
 ```php
-$this->markdown
+$config = array(
+    'tab_width' => 2,
+    'no_markup' => true,
+    'empty_element_suffix' => '/>'
+);
+
+$this->load->library('markdown', $config);
 ```
 
-### Examples
-
-#### Markdown Text to HTML
+#### Markdown to HTML
 
 - `$this->markdown->parse()`
 
@@ -55,7 +60,7 @@ $this->load->library('markdown');
 
 $markdownText = "# Heading "."\n\n"."## Sub-heading"."\n\n";
 echo $this->markdown->parse($markdownText);
->>> <h1>Heading</h1><h2>Sub-heading</h2>
+//>>> <h1>Heading</h1><h2>Sub-heading</h2>
 ```
 
 #### Markdown File to HTML
@@ -69,7 +74,7 @@ parsed HTML.
 $this->load->library('markdown');
 
 echo $this->markdown->parse_file('/path/to/markdown/file.md');
->>> <h1>CI Markdown</h1><p>CI Markdown is a modified rendition...</p>
+//>>> <h1>CI Markdown</h1><p>CI Markdown is a modified rendition...</p>
 ```
 
 ## Issues
