@@ -7,7 +7,7 @@ and [PHP Markdown Extra][2] for [CodeIgniter][3].
 
 ### Requirements
 
-- [PHP][4] version 5.2.4 or newer
+- [PHP][4] version 5.4.8 or newer
 - [CodeIgniter][3] version 2.x – v3.x
 
 ### Download
