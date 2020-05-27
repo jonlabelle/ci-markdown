@@ -168,7 +168,7 @@ $config['fn_backlink_title'] = '';
 |
 | Optional class attribute for footnote links.
 |
-| @string (default = 'footnote-ref')
+| @string [ 'footnote-ref' ]
 */
 
 $config['fn_link_class'] = 'footnote-ref';
@@ -180,7 +180,7 @@ $config['fn_link_class'] = 'footnote-ref';
 |
 | Optional class attribute for footnote back-links.
 |
-| @string (default = 'footnote-backref')
+| @string [ 'footnote-backref' ]
 */
 
 $config['fn_backlink_class'] = 'footnote-backref';
@@ -195,7 +195,7 @@ $config['fn_backlink_class'] = 'footnote-backref';
 | being rendered as an emoji on mobile devices, but it might
 | cause an unrecognized character to appear on older browsers.
 |
-| @string (default = '&#8617;&#xFE0E;')
+| @string [ '&#8617;&#xFE0E;' ]
 */
 
 $config['fn_backlink_html'] = '&#8617;&#xFE0E;';
