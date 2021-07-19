@@ -50,10 +50,10 @@ $this->load->library('markdown', $config);
 
 #### Markdown to HTML
 
-- `$this->markdown->parse()`
+- `$this->markdown->transform()`
 
-Accepts a single `string` parameter of Markdown *text* and returns the parsed
-HTML.
+Accepts a single `string` parameter of Markdown *text* and returns the
+transformed HTML.
 
 ```php
 $this->load->library('markdown');
@@ -63,17 +63,17 @@ echo $this->markdown->parse($markdownText);
 //>>> <h1>Heading</h1><h2>Sub-heading</h2>
 ```
 
-#### Markdown File to HTML
+#### Markdown file to HTML
 
-- `$this->markdown->parse_file()`
+- `$this->markdown->transform_file()`
 
 Accepts a single `string` parameter for a Markdown *file path* and returns the
-parsed HTML.
+transformed HTML.
 
 ```php
 $this->load->library('markdown');
 
-echo $this->markdown->parse_file('/path/to/markdown/file.md');
+echo $this->markdown->transform_file('/path/to/markdown/file.md');
 //>>> <h1>CI Markdown</h1><p>CI Markdown is a modified rendition...</p>
 ```
 
@@ -89,10 +89,6 @@ See the [Changelog][7] page.
 
 - [John Gruber](http://daringfireball.net/)
 - [Michel Fortin](https://michelf.ca/home/)
-
-## Author
-
-- Jon LaBelle <contact@jonlabelle.com>
 
 [1]: https://michelf.ca/projects/php-markdown/
 [2]: https://michelf.ca/projects/php-markdown/extra/

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0
+
+**Release Date:** 2021-07-19
+
+- Deprecate `parse()` and `parse_file()` methods in favor of `transform()` and
+  `transform_file()`, respectively. The deprecated methods will remain in the
+  API for backwards compatibility for the time being, but you should update your
+  callers ASAP to avoid any potential service interruptions going forward as
+  future updates are released.
+
 ## 1.5.0
 
 **Release Date:** 2020-05-22

@@ -9,7 +9,7 @@
  *
  * @category    Libraries
  *
- * @copyright   PHP Markdown Copyright (c) 2004-2019 Michel Fortin
+ * @copyright   PHP Markdown Copyright (c) 2004-2021 Michel Fortin
  *              (https://michelf.ca/projects/php-markdown/)
  * @copyright   Markdown Copyright (c) 2004-2006 John Gruber
  *              (https://daringfireball.net/projects/markdown/)
@@ -18,7 +18,7 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.5.0
+ * @version     1.6.0
  * @version     PHP Markdown Lib 1.9.0
  */
 defined('BASEPATH') || exit('No direct script access allowed');
@@ -671,11 +671,13 @@ class Markdown
     }
 
     /**
-     * Parses the markdown text to HTML.
+     * Transform Markdown text to HTML.
      *
-     * @param string $text The markdown formatted text
+     * @deprecated This method will soon be removed, use `transform($text)` instead.
      *
-     * @return string The HTML formatted markdown
+     * @param string $text The markdown formatted text.
+     *
+     * @return string The HTML formatted markdown.
      */
     public function parse($text)
     {
@@ -683,13 +685,28 @@ class Markdown
     }
 
     /**
-     * Parses a markdown formatted file to HTML.
+     * Transform a Markdown formatted file to HTML.
      *
-     * @param string $file Path of markdown file to parse
-     *
-     * @return mixed The HTML text, or `false` if file does not exist
+     * @deprecated This method will soon be removed, use `transform_file($file)` instead.
+     * @param string $file Path of markdown file to parse.
+     * @return false|string The HTML text, or `false` if file does not exist.
      */
     public function parse_file($file)
+    {
+        if (file_exists($file) && is_readable($file)) {
+            return $this->transform(@file_get_contents($file));
+        }
+
+        return false;
+    }
+
+    /**
+     * Transform a Markdown formatted file to HTML.
+     *
+     * @param string $file Path of markdown file to parse.
+     * @return false|string The HTML text, or `false` if file does not exist.
+     */
+    public function transform_file($file)
     {
         if (file_exists($file) && is_readable($file)) {
             return $this->transform(@file_get_contents($file));
