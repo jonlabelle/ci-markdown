@@ -676,7 +676,6 @@ class Markdown
      * @deprecated This method will soon be removed, use `transform($text)` instead.
      *
      * @param string $text The markdown formatted text.
-     *
      * @return string The HTML formatted markdown.
      */
     public function parse($text)
@@ -688,16 +687,13 @@ class Markdown
      * Transform a Markdown formatted file to HTML.
      *
      * @deprecated This method will soon be removed, use `transform_file($file)` instead.
+     *
      * @param string $file Path of markdown file to parse.
      * @return false|string The HTML text, or `false` if file does not exist.
      */
     public function parse_file($file)
     {
-        if (file_exists($file) && is_readable($file)) {
-            return $this->transform(@file_get_contents($file));
-        }
-
-        return false;
+        return $this->transform_file($file);
     }
 
     /**
