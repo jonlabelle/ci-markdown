@@ -58,9 +58,10 @@ transformed HTML.
 ```php
 $this->load->library('markdown');
 
-$markdownText = "# Heading "."\n\n"."## Sub-heading"."\n\n";
-echo $this->markdown->parse($markdownText);
-//>>> <h1>Heading</h1><h2>Sub-heading</h2>
+$markdownText = "# Heading "."\n"."## Sub-heading";
+echo $this->markdown->transform($markdownText);
+// <h1>Heading</h1>
+// <h2>Sub-heading</h2>
 ```
 
 #### Markdown file to HTML
@@ -74,7 +75,8 @@ transformed HTML.
 $this->load->library('markdown');
 
 echo $this->markdown->transform_file('/path/to/markdown/file.md');
-//>>> <h1>CI Markdown</h1><p>CI Markdown is a modified rendition...</p>
+// <h1>Heading</h1>
+// <h2>Sub-heading</h2>
 ```
 
 ## Issues
