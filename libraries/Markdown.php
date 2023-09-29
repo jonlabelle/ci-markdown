@@ -18,8 +18,8 @@
  *
  * @link        https://github.com/jonlabelle/ci-markdown
  *
- * @version     1.6.0
- * @version     PHP Markdown Lib 1.9.0
+ * @version     1.6.1
+ * @version     PHP Markdown Lib 2.0.0
  */
 defined('BASEPATH') || exit('No direct script access allowed');
 
@@ -1205,7 +1205,7 @@ class Markdown
             // by the pattern.
             $parts = preg_split($tag_re, $text, 2, PREG_SPLIT_DELIM_CAPTURE);
 
-            if (count($parts) < 3) {
+            if ($parts === false || count($parts) < 3) {
                 // End of $text reached with unbalenced tag(s).
                 // In that case, we return original text unchanged and pass the
                 // first character as filtered to prevent an infinite loop in the
